@@ -99,16 +99,15 @@ const ReportService = {
 
         // 1. Update student profile
         if (profile) {
-            await StudentProfile.upsert({
-                student_id: studentId,
-                admission_no: profile.admission_no,
-                dob: profile.dob,
-                age: profile.age,
-                height: profile.height,
-                weight: profile.weight,
-                club: profile.club,
-                fav_color: profile.fav_color
-            });
+await StudentProfile.upsert({
+    student_id: studentId,
+    dob: profile.dob,
+    age: profile.age,
+    height: profile.height,
+    weight: profile.weight,
+    club: profile.club,
+    fav_color: profile.fav_color
+});
         }
 
         // 2. Update results (bulk upsert)

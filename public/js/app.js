@@ -2,10 +2,6 @@
  * app.js – Shared utilities for the portal
  */
 
-/**
- * app.js – Shared utilities for the portal
- */
-
 // ---- Toast Notification System ----
 function showNotification(message, type = 'success') {
     const existing = document.querySelector('.toast-container');
@@ -45,13 +41,11 @@ async function apiFetch(url, options = {}) {
     try {
         const response = await fetch(url, merged);
 
-        // If unauthorized, redirect to login
         if (response.status === 401) {
             window.location.href = '/login';
             return;
         }
 
-        // For non-2xx responses, try to parse error message
         if (!response.ok) {
             let errorMsg;
             try {
@@ -63,7 +57,6 @@ async function apiFetch(url, options = {}) {
             throw new Error(errorMsg);
         }
 
-        // If response is empty, return null
         const contentLength = response.headers.get('content-length');
         if (contentLength === '0' || response.status === 204) {
             return null;

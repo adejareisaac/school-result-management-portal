@@ -141,44 +141,93 @@ async function initDatabase() {
                     gender: 'Female',
                     class: 'SS3',
                     session: '2025/2026',
-                    profile: { dob: '15-Mar-2005', age: '14yrs', height: '72.0', weight: '50.0', club: 'Debate Club', fav_color: 'Blue' }
+                    profile: {
+                        dob: '15-Mar-2005',
+                        age: '14yrs',
+                        height: '72.0',
+                        weight: '50.0',
+                        club: 'Debate Club',
+                        fav_color: 'Blue'
+                    }
                 },
                 {
                     name: 'Brian Smith',
                     gender: 'Male',
                     class: 'SS3',
                     session: '2025/2026',
-                    profile: { dob: '20-Jun-2004', age: '15yrs', height: '80.0', weight: '62.0', club: 'Football', fav_color: 'Red' }
+                    profile: {
+                        dob: '20-Jun-2004',
+                        age: '15yrs',
+                        height: '80.0',
+                        weight: '62.0',
+                        club: 'Football',
+                        fav_color: 'Red'
+                    }
                 },
                 {
                     name: 'Catherine Okafor',
                     gender: 'Female',
                     class: 'SS2',
                     session: '2025/2026',
-                    profile: { dob: '10-Sep-2005', age: '13yrs', height: '68.0', weight: '45.0', club: 'Choir', fav_color: 'Pink' }
+                    profile: {
+                        dob: '10-Sep-2005',
+                        age: '13yrs',
+                        height: '68.0',
+                        weight: '45.0',
+                        club: 'Choir',
+                        fav_color: 'Pink'
+                    }
                 },
                 {
                     name: 'David Musa',
                     gender: 'Male',
                     class: 'SS1',
                     session: '2025/2026',
-                    profile: { dob: '05-Jan-2006', age: '13yrs', height: '74.0', weight: '52.0', club: 'Chess Club', fav_color: 'Green' }
+                    profile: {
+                        dob: '05-Jan-2006',
+                        age: '13yrs',
+                        height: '74.0',
+                        weight: '52.0',
+                        club: 'Chess Club',
+                        fav_color: 'Green'
+                    }
                 },
                 {
                     name: 'Eunice Adeyemi',
                     gender: 'Female',
                     class: 'SS3',
                     session: '2024/2025',
-                    profile: { dob: '22-Nov-2003', age: '15yrs', height: '70.0', weight: '47.0', club: 'Literary Club', fav_color: 'Purple' }
+                    profile: {
+                        dob: '22-Nov-2003',
+                        age: '15yrs',
+                        height: '70.0',
+                        weight: '47.0',
+                        club: 'Literary Club',
+                        fav_color: 'Purple'
+                    }
                 }
             ];
 
             const insertedStudents = [];
             for (const s of studentsData) {
                 const student_id = await generateStudentId(s.session);
-                await insert('students', { student_id, name: s.name, gender: s.gender, class: s.class, session: s.session });
+                await insert('students', {
+                    student_id,
+                    name: s.name,
+                    gender: s.gender,
+                    class: s.class,
+                    session: s.session
+                });
                 if (s.profile) {
-                    await insert('student_profiles', { student_id, ...s.profile });
+                    await insert('student_profiles', {
+                        student_id,
+                        dob: s.profile.dob,
+                        age: s.profile.age,
+                        height: s.profile.height,
+                        weight: s.profile.weight,
+                        club: s.profile.club,
+                        fav_color: s.profile.fav_color
+                    });
                 }
                 insertedStudents.push({ ...s, student_id });
                 console.log(`   ✅ ${student_id} – ${s.name}`);
@@ -209,8 +258,8 @@ async function initDatabase() {
                         if (total > 100) {
                             exam = 100 - ca1 - ca2;
                             if (exam < 0) exam = 0;
+                            total = ca1 + ca2 + exam;
                         }
-                        total = ca1 + ca2 + exam;
                         const percentage = total; // since max is 100
                         const grade = calculateGrade(percentage);
                         const position = Math.floor(Math.random() * 5) + 1;
@@ -232,7 +281,7 @@ async function initDatabase() {
 
                     // --- Attendance ---
                     const daysOpened = 150;
-                    const daysPresent = Math.floor(Math.random() * 20) + 130;
+                    const daysPresent = Math.floor(Math.random() * 20) + 130; // 130-150
                     const daysAbsent = daysOpened - daysPresent;
                     await insert('attendance', {
                         student_id: student.student_id,
@@ -256,7 +305,12 @@ async function initDatabase() {
                         responsibility: Math.floor(Math.random() * 5) + 1,
                         relationships: Math.floor(Math.random() * 5) + 1
                     };
-                    await insert('affective_domain', { student_id: student.student_id, session: student.session, term, ...affectiveTraits });
+                    await insert('affective_domain', {
+                        student_id: student.student_id,
+                        session: student.session,
+                        term,
+                        ...affectiveTraits
+                    });
 
                     // --- Psychomotor Domain ---
                     const psychomotorTraits = {
@@ -267,7 +321,12 @@ async function initDatabase() {
                         speech_fluency: Math.floor(Math.random() * 5) + 1,
                         sports: Math.floor(Math.random() * 5) + 1
                     };
-                    await insert('psychomotor_domain', { student_id: student.student_id, session: student.session, term, ...psychomotorTraits });
+                    await insert('psychomotor_domain', {
+                        student_id: student.student_id,
+                        session: student.session,
+                        term,
+                        ...psychomotorTraits
+                    });
 
                     // --- Report Remarks ---
                     const teacherRemarks = [
@@ -303,7 +362,7 @@ async function initDatabase() {
 
         console.log('🎉 Database initialization complete!');
     } catch (error) {
-        console.error('❌ Error:', error.message);
+        console.error('❌ Error during initialization:', error.message);
         console.error('Stack:', error.stack);
         process.exit(1);
     } finally {

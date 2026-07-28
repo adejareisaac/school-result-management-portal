@@ -1032,3 +1032,28 @@
         justify-content: center;
     }
 }
+
+/* ---- Session Term Selector Refresh Button ---- */
+.session-term-selector .btn-refresh {
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    padding: 6px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.session-term-selector .btn-refresh:hover {
+    background: #1d4ed8;
+    transform: scale(1.02);
+}
+
+.session-term-selector .btn-refresh:active {
+    transform: scale(0.98);
+}

@@ -1,14 +1,13 @@
 /**
- * view-result.js – Student result lookup and display
+ * view-result.js – Public result lookup (Full Report Card)
  */
 
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('resultLookupForm');
     const displayDiv = document.getElementById('resultDisplay');
-    const sheetContainer = document.getElementById('resultSheetContainer');
     const errorDiv = document.getElementById('lookupError');
 
-    // If the URL has query parameters, auto-fetch
+    // Auto-fetch from URL parameters if present
     const params = getUrlParams();
     if (params.studentId && params.session && params.term) {
         document.getElementById('lookupStudentId').value = params.studentId;
@@ -27,15 +26,19 @@ document.addEventListener('DOMContentLoaded', () => {
             showNotification('Please fill in all fields.', 'error');
             return;
         }
-
         fetchResult(studentId, session, term);
+    });
+
+    // Print button
+    document.getElementById('printResultBtn')?.addEventListener('click', () => {
+        window.print();
     });
 });
 
 async function fetchResult(studentId, session, term) {
     const errorDiv = document.getElementById('lookupError');
     const displayDiv = document.getElementById('resultDisplay');
-    const sheetContainer = document.getElementById('resultSheetContainer');
+    const container = document.getElementById('reportCardContainer');
 
     try {
         errorDiv.style.display = 'none';
@@ -48,16 +51,11 @@ async function fetchResult(studentId, session, term) {
             throw new Error(data.error || 'No result found.');
         }
 
-        const { student, results } = data.data;
-
-        // Populate the result sheet
-        populateResultSheet(student, results, session, term);
+        const report = data.data;
+        container.innerHTML = renderFullReportCard(report, session, term);
 
         displayDiv.style.display = 'block';
-
-        // Scroll to result
         displayDiv.scrollIntoView({ behavior: 'smooth' });
-
     } catch (error) {
         errorDiv.style.display = 'block';
         errorDiv.textContent = error.message || 'Failed to load result. Please check the details and try again.';
@@ -65,89 +63,175 @@ async function fetchResult(studentId, session, term) {
     }
 }
 
-function populateResultSheet(student, results, session, term) {
-    // Fill student info
-    document.getElementById('studentName').textContent = student.name;
-    document.getElementById('studentGender').textContent = student.gender || '—';
-    document.getElementById('studentClass').textContent = student.class;
-    document.getElementById('studentSession').textContent = session;
-    document.getElementById('studentAdmissionNo').textContent = student.student_id;
-    // Additional fields can be filled if we have them; we'll leave placeholders
-    document.getElementById('studentDOB').textContent = '—';
-    document.getElementById('studentAge').textContent = '—';
-    document.getElementById('studentHeight').textContent = '—';
-    document.getElementById('studentWeight').textContent = '—';
-    document.getElementById('studentClub').textContent = '—';
-    document.getElementById('studentFavColor').textContent = '—';
+function renderFullReportCard(report, session, term) {
+    const { student, profile, results, attendance, affective, psychomotor, remarks, summary, gradeAnalysis, totalSubjects } = report;
 
-    // Fill results table
-    const tbody = document.getElementById('resultSheetBody');
-    if (!tbody) return;
-
-    if (results.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;">No subjects found for this term.</td></tr>`;
-        return;
+    // Helper to get ordinal suffix
+    function getOrdinal(n) {
+        if (n === 1) return 'st';
+        if (n === 2) return 'nd';
+        if (n === 3) return 'rd';
+        return 'th';
     }
 
-    // Calculate totals
-    let totalObtained = 0;
-    let totalObtainable = results.length * 100; // assuming 100 per subject
+    let html = `<div class="report-card read-only">`;
 
-    tbody.innerHTML = results.map(r => {
-        totalObtained += r.score;
-        return `
-            <tr>
-                <td>${r.subject}</td>
-                <td>—</td> <!-- CA1 placeholder -->
-                <td>—</td> <!-- CA2 placeholder -->
-                <td>${r.score}</td>
-                <td>${r.score}</td> <!-- total = exam (for simplicity) -->
-                <td>${r.grade || '-'}</td>
-                <td>${r.position || '-'}</td>
-                <td>${r.remark || '-'}</td>
-            </tr>
-        `;
-    }).join('');
+    // ===== SCHOOL HEADER =====
+    html += `
+        <div class="school-header">
+            <h1>Greenwood Academy</h1>
+            <p>No 14 Davis Cole Crescent, PrimeVille Estate, Surulere, Lagos State.</p>
+            <p>Tel: 08115414915, 07064852256 &bull; Email: info@greenwoodacademy.edu</p>
+            <div class="report-title">${term} Term Student's Performance Report</div>
+            <div style="font-weight:600; color:#2563eb; margin-top:4px;">Session: ${session}</div>
+        </div>
+    `;
 
-    // Update summary
-    document.getElementById('totalObtained').textContent = totalObtained;
-    document.getElementById('totalObtainable').textContent = totalObtainable;
-    const percentage = (totalObtained / totalObtainable) * 100;
-    document.getElementById('percentage').textContent = percentage.toFixed(1) + '%';
+    // ===== STUDENT PROFILE =====
+    html += `
+        <div class="student-profile">
+            <div class="profile-field"><label>Name:</label> <span>${student.name}</span></div>
+            <div class="profile-field"><label>Gender:</label> <span>${student.gender || '—'}</span></div>
+            <div class="profile-field"><label>Class:</label> <span>${student.class}</span></div>
+            <div class="profile-field"><label>Student ID:</label> <span>${student.student_id}</span></div>
+            <div class="profile-field"><label>D.O.B.:</label> <span>${profile.dob || '—'}</span></div>
+            <div class="profile-field"><label>Age:</label> <span>${profile.age || '—'}</span></div>
+            <div class="profile-field"><label>Height (cm):</label> <span>${profile.height || '—'}</span></div>
+            <div class="profile-field"><label>Weight (kg):</label> <span>${profile.weight || '—'}</span></div>
+            <div class="profile-field"><label>Club/Society:</label> <span>${profile.club || '—'}</span></div>
+            <div class="profile-field"><label>Fav. Colour:</label> <span>${profile.fav_color || '—'}</span></div>
+        </div>
+    `;
 
-    // Overall grade (simple mapping)
-    let overallGrade = 'F';
-    if (percentage >= 70) overallGrade = 'A';
-    else if (percentage >= 60) overallGrade = 'B';
-    else if (percentage >= 50) overallGrade = 'C';
-    else if (percentage >= 40) overallGrade = 'D';
-    else if (percentage >= 30) overallGrade = 'E';
-    document.getElementById('overallGrade').textContent = overallGrade;
+    // ===== COGNITIVE DOMAIN =====
+    html += `<div class="section-title">📊 Cognitive Domain</div>`;
+html += `<table class="result-table"><thead><tr>
+    <th>Subjects</th><th>CA</th><th>CA</th><th>Exam</th><th>Total</th><th>Grade</th><th>Position</th><th>Remark</th>
+</tr></thead><tbody>`;
 
-    // Grade analysis (counts)
-    const gradeCounts = { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0 };
-    results.forEach(r => {
-        if (r.grade && gradeCounts.hasOwnProperty(r.grade)) {
-            gradeCounts[r.grade]++;
+    if (results.length === 0) {
+        html += `<tr><td colspan="8" style="text-align:center;">No results found for this session/term.</td></tr>`;
+    } else {
+        results.forEach(r => {
+            html += `
+                <tr>
+                    <td><strong>${r.subject}</strong></td>
+                    <td>${r.ca1 || 0}</td>
+                    <td>${r.ca2 || 0}</td>
+                    <td>${r.exam || 0}</td>
+                    <td class="total-grade">${r.total || 0}</td>
+                    <td class="total-grade">${r.grade || '-'}</td>
+                    <td>${r.position || '-'}</td>
+                    <td>${r.remark || '-'}</td>
+                </tr>
+            `;
+        });
+    }
+    html += `</tbody></table>`;
+
+    // ===== PERFORMANCE SUMMARY =====
+    html += `
+        <div class="summary-grid">
+            <div class="summary-item"><span class="label">Total Obtained:</span> <span class="value">${summary.totalObtained || 0}</span></div>
+            <div class="summary-item"><span class="label">Total Obtainable:</span> <span class="value">${summary.totalObtainable || 0}</span></div>
+            <div class="summary-item"><span class="label">Percentage:</span> <span class="value">${summary.percentage || 0}%</span></div>
+            <div class="summary-item"><span class="label">Grade:</span> <span class="value">${summary.grade || 'F'}</span></div>
+        </div>
+    `;
+
+    // ===== GRADE SCALE =====
+    html += `
+        <div class="grade-scale">
+            <span>A (70-100%) – Excellent</span>
+            <span>B (60-69.9%) – Very Good</span>
+            <span>C (50-59.9%) – Good</span>
+            <span>D (40-49.9%) – Pass</span>
+            <span>E (30-39.9%) – Fair</span>
+            <span>F (0-29.9%) – Weak</span>
+        </div>
+    `;
+
+    // ===== ATTENDANCE SUMMARY =====
+    html += `
+        <div class="section-title">📅 Attendance Summary</div>
+        <div class="attendance-grid">
+            <div><label>No of Times School Opened:</label> <span>${attendance.days_opened || 0}</span></div>
+            <div><label>No of Times Present:</label> <span>${attendance.days_present || 0}</span></div>
+            <div><label>No of Times Absent:</label> <span>${attendance.days_absent || 0}</span></div>
+        </div>
+    `;
+
+    // ===== AFFECTIVE DOMAIN =====
+    html += `
+        <div class="section-title">🧠 Affective Domain</div>
+        <table class="rating-table"><thead><tr><th>Traits</th><th>5</th><th>4</th><th>3</th><th>2</th><th>1</th></tr></thead><tbody>`;
+    const affectiveTraits = ['attentiveness','honesty','neatness','politeness','punctuality','self_control','obedience','reliability','responsibility','relationships'];
+    const affectiveLabels = ['Attentiveness','Honesty','Neatness','Politeness','Punctuality/Assembly','Self Control/Calmness','Obedience','Reliability','Sense of Responsibility','Relationship With Others'];
+    affectiveTraits.forEach((trait, idx) => {
+        const val = affective[trait] || 0;
+        html += `<tr><td>${affectiveLabels[idx]}</td>`;
+        for (let i = 5; i >= 1; i--) {
+            html += `<td><span class="rating-btn ${val === i ? 'active' : ''}">${i}</span></td>`;
         }
+        html += `</tr>`;
     });
-    document.getElementById('countA').textContent = gradeCounts.A;
-    document.getElementById('countB').textContent = gradeCounts.B;
-    document.getElementById('countC').textContent = gradeCounts.C;
-    document.getElementById('countD').textContent = gradeCounts.D;
-    document.getElementById('countE').textContent = gradeCounts.E;
-    document.getElementById('countF').textContent = gradeCounts.F;
+    html += `</tbody></table>`;
 
-    document.getElementById('totalSubjects').textContent = results.length;
+    // ===== PSYCHOMOTOR DOMAIN =====
+    html += `
+        <div class="section-title">🏃 Psychomotor Domain</div>
+        <table class="rating-table"><thead><tr><th>Traits</th><th>5</th><th>4</th><th>3</th><th>2</th><th>1</th></tr></thead><tbody>`;
+    const psychomotorTraits = ['handling_tools','drawing','handwriting','public_speaking','speech_fluency','sports'];
+    const psychomotorLabels = ['Handling of Tools','Drawing / Painting','Handwriting','Public Speaking','Speech Fluency','Sports & Games'];
+    psychomotorTraits.forEach((trait, idx) => {
+        const val = psychomotor[trait] || 0;
+        html += `<tr><td>${psychomotorLabels[idx]}</td>`;
+        for (let i = 5; i >= 1; i--) {
+            html += `<td><span class="rating-btn ${val === i ? 'active' : ''}">${i}</span></td>`;
+        }
+        html += `</tr>`;
+    });
+    html += `</tbody></table>`;
 
-    // Remarks placeholders
-    document.getElementById('teacherRemark').textContent = '—';
-    document.getElementById('principalRemark').textContent = '—';
+    // ===== GRADE ANALYSIS =====
+    html += `
+        <div class="section-title">📊 Grade Analysis</div>
+        <div class="summary-grid" style="background:#f1f5f9;">
+            <div class="summary-item"><span class="label">A:</span> <span class="value">${gradeAnalysis.A || 0}</span></div>
+            <div class="summary-item"><span class="label">B:</span> <span class="value">${gradeAnalysis.B || 0}</span></div>
+            <div class="summary-item"><span class="label">C:</span> <span class="value">${gradeAnalysis.C || 0}</span></div>
+            <div class="summary-item"><span class="label">D:</span> <span class="value">${gradeAnalysis.D || 0}</span></div>
+            <div class="summary-item"><span class="label">E:</span> <span class="value">${gradeAnalysis.E || 0}</span></div>
+            <div class="summary-item"><span class="label">F:</span> <span class="value">${gradeAnalysis.F || 0}</span></div>
+            <div class="summary-item"><span class="label">Total Subjects:</span> <span class="value">${totalSubjects || 0}</span></div>
+        </div>
+    `;
 
-    // Next term date placeholder
-    document.getElementById('nextTermDate').textContent = '—';
+    // ===== REMARKS =====
+    html += `
+        <div class="section-title">📝 Remarks</div>
+        <div class="remarks-section">
+            <div><label>Teacher's Remark:</label></div>
+            <div class="remark-text">${remarks.teacher_remark || '—'}</div>
+            <div class="signature-line">
+                <span>Teacher's Name: ${remarks.teacher_name || '—'}</span>
+                <span>Sign: ______________</span>
+            </div>
+        </div>
+        <div class="remarks-section">
+            <div><label>Principal's Remark:</label></div>
+            <div class="remark-text">${remarks.principal_remark || '—'}</div>
+            <div class="signature-line">
+                <span>Principal's Name: ${remarks.principal_name || '—'}</span>
+                <span>Sign: ______________</span>
+            </div>
+        </div>
+        <div style="margin-top:12px; font-size:0.9rem; color:#64748b;">
+            <label>Next Term Begins: ${remarks.next_term_date || '—'}</label>
+            &nbsp;|&nbsp; <label>Date: ${remarks.report_date || new Date().toISOString().split('T')[0]}</label>
+        </div>
+    `;
 
-    // Set term and session in header
-    document.getElementById('reportSession').textContent = session;
-    document.getElementById('reportTerm').textContent = term;
+    html += `</div>`;
+    return html;
 }

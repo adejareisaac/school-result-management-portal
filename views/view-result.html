@@ -8,10 +8,10 @@
     <link rel="stylesheet" href="/css/view-result.css" />
 </head>
 <body>
-    <!-- Minimal header -->
+    <!-- Simple public header -->
     <header class="public-header">
         <div class="header-left">
-            <span class="logo">Greenwood Academy</span>
+            <span class="logo">🏫 Greenwood Academy</span>
         </div>
         <div class="header-right">
             <a href="/" class="btn btn-outline">← Back to Home</a>
@@ -27,7 +27,7 @@
             <form id="resultLookupForm" class="lookup-form">
                 <div class="form-group">
                     <label for="lookupStudentId">Student ID</label>
-                    <input type="text" id="lookupStudentId" placeholder="e.g., STD-2026-001" required />
+                    <input type="text" id="lookupStudentId" placeholder="e.g., STD-2025-001" required />
                 </div>
                 <div class="form-group">
                     <label for="lookupSession">Academic Session</label>
@@ -50,9 +50,12 @@
 
             <!-- Result Display Area -->
             <div id="resultDisplay" style="display:none;">
-                <!-- Will be populated dynamically or show result-sheet -->
-                <div id="resultSheetContainer"></div>
-                <button class="btn btn-secondary" onclick="window.print()">🖨️ Print Result</button>
+                <div id="reportCardContainer" class="report-card read-only">
+                    <!-- Will be injected by JavaScript -->
+                </div>
+                <div class="print-actions">
+                    <button class="btn btn-secondary" id="printResultBtn">🖨️ Print Result</button>
+                </div>
             </div>
 
             <!-- Error Message -->
@@ -64,6 +67,8 @@
         <p>&copy; 2026 Greenwood Academy. All rights reserved.</p>
     </footer>
 
+    <!-- JavaScript -->
+    <script src="/js/app.js"></script>
     <script src="/js/view-result.js" defer></script>
 </body>
 </html>
