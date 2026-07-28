@@ -1,0 +1,90 @@
+/* ===== PRINT STYLES ===== */
+@media print {
+    /* Hide navigation, buttons, search forms */
+    .app-header,
+    .sidebar,
+    .page-header .btn,
+    .search-bar,
+    .filter-form,
+    .lookup-form .btn,
+    .action-grid,
+    .public-header .btn,
+    .modal,
+    .logout-form,
+    #resultDisplay .btn,
+    .no-print {
+        display: none !important;
+    }
+
+    /* Ensure result sheet takes full width */
+    .result-sheet-wrapper {
+        box-shadow: none !important;
+        border: none !important;
+        padding: 20px !important;
+        border-radius: 0 !important;
+        margin: 0 auto !important;
+        max-width: 100% !important;
+        background: white !important;
+    }
+
+    .view-result-main {
+        padding: 0 !important;
+        margin: 0 !important;
+        max-width: 100% !important;
+    }
+
+    .result-sheet-wrapper {
+        font-size: 10pt;
+    }
+
+    .school-header .school-name {
+        font-size: 20pt;
+    }
+
+    .result-table th,
+    .result-table td {
+        padding: 4px 6px !important;
+        font-size: 9pt !important;
+    }
+
+    .student-profile {
+        background: #f4f4f4 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    .rating-table td,
+    .rating-table th {
+        padding: 3px 6px !important;
+        font-size: 8pt !important;
+    }
+
+    .performance-summary,
+    .attendance-grid,
+    .grade-count-grid {
+        background: #f4f4f4 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    .result-footer {
+        font-size: 8pt;
+    }
+
+    /* Avoid page breaks inside tables */
+    .result-table,
+    .rating-table {
+        page-break-inside: avoid;
+    }
+
+    .remarks {
+        page-break-inside: avoid;
+    }
+
+    /* Force background colours for grade scale etc. */
+    .scale-grid span {
+        background: #e9e9e9 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+}

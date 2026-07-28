@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Result Sheet · Greenwood Academy</title>
+    <!-- Global styles and print styles -->
+    <link rel="stylesheet" href="/css/global.css" />
+    <link rel="stylesheet" href="/css/print.css" media="print" />
+    <link rel="stylesheet" href="/css/view-result.css" />
+</head>
+<body>
+    <div class="result-sheet-wrapper" id="resultSheet">
+
+        <!-- ===== SCHOOL HEADER ===== -->
+        <header class="school-header">
+            <div class="school-name">Greenwood Academy</div>
+            <div class="school-address">
+                No 14 Davis Cole Crescent, PrimeVille Estate, Surulere, Lagos State.<br />
+                Tel: 08115414915, 07064852256 &bull; Email: info@greenwoodacademy.edu
+            </div>
+            <div class="report-title">Student Academic Report Sheet</div>
+            <div class="term-info">
+                <span id="reportSession">2025/2026</span> &bull;
+                <span id="reportTerm">First Term</span>
+            </div>
+        </header>
+
+        <!-- ===== STUDENT PROFILE ===== -->
+        <section class="student-profile">
+            <div class="profile-row">
+                <div><strong>Name:</strong> <span id="studentName">—</span></div>
+                <div><strong>Gender:</strong> <span id="studentGender">—</span></div>
+                <div><strong>Class:</strong> <span id="studentClass">—</span></div>
+                <div><strong>Session:</strong> <span id="studentSession">—</span></div>
+            </div>
+            <div class="profile-row">
+                <div><strong>Admission No.:</strong> <span id="studentAdmissionNo">—</span></div>
+                <div><strong>D.O.B.:</strong> <span id="studentDOB">—</span></div>
+                <div><strong>Age:</strong> <span id="studentAge">—</span></div>
+                <div><strong>Height:</strong> <span id="studentHeight">—</span> cm</div>
+                <div><strong>Weight:</strong> <span id="studentWeight">—</span> kg</div>
+            </div>
+            <div class="profile-row">
+                <div><strong>Club/Society:</strong> <span id="studentClub">—</span></div>
+                <div><strong>Favourite Colour:</strong> <span id="studentFavColor">—</span></div>
+            </div>
+        </section>
+
+        <!-- ===== COGNITIVE DOMAIN (Subjects) ===== -->
+        <section class="cognitive-domain">
+            <h2>Cognitive Domain</h2>
+            <table class="result-table">
+                <thead>
+                    <tr>
+                        <th>Subject</th>
+                        <th>C.A.</th>
+                        <th>C.A.</th>
+                        <th>Exam</th>
+                        <th>Total</th>
+                        <th>Grade</th>
+                        <th>Position</th>
+                        <th>Remark</th>
+                    </tr>
+                </thead>
+                <tbody id="resultSheetBody">
+                    <!-- JavaScript will populate rows -->
+                    <tr><td colspan="8" style="text-align:center;">Loading results…</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- ===== PERFORMANCE SUMMARY ===== -->
+        <section class="performance-summary">
+            <div class="summary-item">
+                <span class="label">Total Obtained:</span>
+                <span class="value" id="totalObtained">0</span>
+            </div>
+            <div class="summary-item">
+                <span class="label">Total Obtainable:</span>
+                <span class="value" id="totalObtainable">0</span>
+            </div>
+            <div class="summary-item">
+                <span class="label">Percentage:</span>
+                <span class="value" id="percentage">0%</span>
+            </div>
+            <div class="summary-item">
+                <span class="label">Grade:</span>
+                <span class="value" id="overallGrade">—</span>
+            </div>
+        </section>
+
+        <!-- ===== GRADE SCALE ===== -->
+        <section class="grade-scale">
+            <h3>Grade Scale</h3>
+            <div class="scale-grid">
+                <span>A (70-100%) – Excellent</span>
+                <span>B (60-69.9%) – Very Good</span>
+                <span>C (50-59.9%) – Good</span>
+                <span>D (40-49.9%) – Pass</span>
+                <span>E (30-39.9%) – Fair</span>
+                <span>F (0-29.9%) – Weak</span>
+            </div>
+        </section>
+
+        <!-- ===== ATTENDANCE SUMMARY ===== -->
+        <section class="attendance-summary">
+            <h3>Attendance Summary</h3>
+            <div class="attendance-grid">
+                <div><span>No. of Times School Opened:</span> <span id="daysOpened">0</span></div>
+                <div><span>No. of Times Present:</span> <span id="daysPresent">0</span></div>
+                <div><span>No. of Times Absent:</span> <span id="daysAbsent">0</span></div>
+            </div>
+        </section>
+
+        <!-- ===== AFFECTIVE DOMAIN ===== -->
+        <section class="affective-domain">
+            <h3>Affective Domain</h3>
+            <table class="rating-table">
+                <thead>
+                    <tr>
+                        <th>Traits</th>
+                        <th>5</th>
+                        <th>4</th>
+                        <th>3</th>
+                        <th>2</th>
+                        <th>1</th>
+                    </tr>
+                </thead>
+                <tbody id="affectiveBody">
+                    <!-- JavaScript can populate with checkmarks or ratings -->
+                    <tr><td>Attentiveness</td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>Honesty</td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>Neatness</td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>Politeness</td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>Punctuality / Assembly</td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>Self Control / Calmness</td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>Obedience</td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>Reliability</td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>Sense of Responsibility</td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>Relationship With Others</td><td></td><td></td><td></td><td></td><td></td></tr>
+                </tbody>
+            </table>
+            <div class="rating-indices">
+                <p>5 – Maintains an Excellent degree of Observable traits.</p>
+                <p>4 – Maintains a High level of Observable traits.</p>
+                <p>3 – Acceptable level of Observable traits.</p>
+                <p>2 – Shows Minimal regard for Observable traits.</p>
+                <p>1 – Has No regard for Observable traits.</p>
+            </div>
+        </section>
+
+        <!-- ===== PSYCHOMOTOR DOMAIN ===== -->
+        <section class="psychomotor-domain">
+            <h3>Psychomotor Domain</h3>
+            <table class="rating-table">
+                <thead>
+                    <tr>
+                        <th>Traits</th>
+                        <th>5</th>
+                        <th>4</th>
+                        <th>3</th>
+                        <th>2</th>
+                        <th>1</th>
+                    </tr>
+                </thead>
+                <tbody id="psychomotorBody">
+                    <tr><td>Handling of Tools</td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>Drawing / Painting</td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>Handwriting</td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>Public Speaking</td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>Speech Fluency</td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td>Sports &amp; Games</td><td></td><td></td><td></td><td></td><td></td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- ===== GRADE ANALYSIS ===== -->
+        <section class="grade-analysis">
+            <h3>Grade Analysis</h3>
+            <div class="grade-count-grid">
+                <div><span>A</span> <span id="countA">0</span></div>
+                <div><span>B</span> <span id="countB">0</span></div>
+                <div><span>C</span> <span id="countC">0</span></div>
+                <div><span>D</span> <span id="countD">0</span></div>
+                <div><span>E</span> <span id="countE">0</span></div>
+                <div><span>F</span> <span id="countF">0</span></div>
+            </div>
+            <div class="total-subjects">
+                <strong>Total Subjects Offered:</strong> <span id="totalSubjects">0</span>
+            </div>
+        </section>
+
+        <!-- ===== REMARKS ===== -->
+        <section class="remarks">
+            <div class="teacher-remark">
+                <h4>Teacher's Remark</h4>
+                <p id="teacherRemark">—</p>
+                <div class="signature-line">
+                    <span>Teacher's Name: <span id="teacherName">—</span></span>
+                    <span>Sign: <span id="teacherSign">____________</span></span>
+                </div>
+            </div>
+            <div class="principal-remark">
+                <h4>Principal's Remark</h4>
+                <p id="principalRemark">—</p>
+                <div class="signature-line">
+                    <span>Principal's Name: <span id="principalName">—</span></span>
+                    <span>Sign: <span id="principalSign">____________</span></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== FOOTER ===== -->
+        <footer class="result-footer">
+            <div class="next-term">
+                Next Term Begins: <span id="nextTermDate">—</span>
+            </div>
+            <div class="generated-date">
+                Generated on <span id="printDate"></span>
+            </div>
+            <div class="disclaimer">
+                This is a computer-generated document. No signature required.
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Simple script to set the generation date -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const now = new Date();
+            document.getElementById('printDate').textContent = now.toLocaleDateString('en-GB', {
+                day: '2-digit', month: 'short', year: 'numeric'
+            });
+        });
+    </script>
+
+    <!-- Main JavaScript to populate dynamic data -->
+    <script src="/js/view-result.js" defer></script>
+</body>
+</html>

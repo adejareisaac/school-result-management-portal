@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Teacher Login · Greenwood Academy</title>
+    <!-- Global base styles -->
+    <link rel="stylesheet" href="/css/global.css" />
+    <!-- Login specific styles -->
+    <link rel="stylesheet" href="/css/login.css" />
+</head>
+<body>
+    <div class="login-page">
+        <div class="login-container">
+            <!-- Brand -->
+            <div class="login-brand">
+                <h1>Greenwood Academy</h1>
+                <p>School Result Management Portal</p>
+            </div>
+            <!-- Login Form -->
+            <form action="/login" method="POST" class="login-form" id="loginForm">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Enter your username" required autofocus />
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required />
+                </div>
+                <button type="submit" class="btn btn-primary btn-large btn-block">Log In</button>
+                <p class="login-help">Default: <strong>admin</strong> / <strong>password123</strong></p>
+            </form>
+            <!-- Error message placeholder (if any) -->
+            <div id="loginError" class="login-error" style="display:none;"></div>
+        </div>
+    </div>
+
+    <!-- Login JavaScript -->
+    <script src="/js/login.js" defer></script>
+</body>
+</html>

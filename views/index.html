@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>School Result Management Portal</title>
+
+    <!-- ===== CSS ===== -->
+    <link rel="stylesheet" href="./css/global.css" />
+
+    <!-- ===== Google Fonts ===== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet" />
+
+    <!-- ===== GSAP + Plugins ===== -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+
+    <!-- ===== Lenis (Smooth Scroll) ===== -->
+    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" defer></script>
+</head>
+<body>
+
+    <!-- ============================================================== -->
+    <!-- SECTION 1: HERO                                               -->
+    <!-- ============================================================== -->
+    <section class="hero" id="hero">
+        <!-- Background Image Container -->
+        <div class="hero-bg-mask">
+            <div class="hero-bg-image" style="background-image: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1920&q=80');"></div>
+        </div>
+
+        <!-- Overlay Gradient -->
+        <div class="hero-overlay"></div>
+
+        <!-- Content -->
+        <div class="hero-content container">
+            <!-- Eyebrow Badge -->
+            <div class="hero-badge">
+                <span class="badge-icon">⚡</span>
+                2026/2027 Admissions Now Open — Secure Your Child's Future
+            </div>
+
+            <!-- Main Headline -->
+            <h1 class="hero-title">
+                Where Future Leaders <br /><span class="highlight">Master Tomorrow.</span>
+            </h1>
+
+            <!-- Sub-headline -->
+            <p class="hero-sub">
+                Blending rigorous academic discipline with cutting-edge digital learning.
+                We groom thinkers, innovators, and moral compasses for a rapidly evolving world.
+            </p>
+
+            <!-- CTAs -->
+            <div class="hero-cta">
+                <a href="#why-choose-us" class="btn btn-primary btn-large">Explore Campus Life</a>
+                <a href="#portal-widget" class="btn btn-secondary btn-large">Check Student Results →</a>
+            </div>
+        </div>
+
+    
+    </section>
+
+
+    <!-- ============================================================== -->
+    <!-- SECTION 2: QUICK-ACCESS PORTAL WIDGET                         -->
+    <!-- ============================================================== -->
+    <section class="portal-widget" id="portal-widget">
+        <div class="container">
+            <div class="widget-wrapper">
+                <div class="widget-content">
+                    <span class="widget-badge">Instant Academic Access</span>
+                    <h2 class="widget-title">Check Your Results in Seconds</h2>
+                    <p class="widget-desc">
+                        No account required. Enter a Student ID to securely retrieve term reports,
+                        teacher remarks, and performance analytics.
+                    </p>
+
+                    <form class="widget-form" id="resultCheckForm">
+                        <div class="form-group">
+                            <label for="studentId">Student ID</label>
+                            <input type="text" id="studentId" placeholder="e.g. STD-2026-001" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="sessionSelect">Academic Session</label>
+                            <select id="sessionSelect" required>
+                                <option value="">Select Session</option>
+                                <option value="2025/2026">2025/2026</option>
+                                <option value="2024/2025">2024/2025</option>
+                                <option value="2023/2024">2023/2024</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="termSelect">Term</label>
+                            <select id="termSelect" required>
+                                <option value="">Select Term</option>
+                                <option value="First">First Term</option>
+                                <option value="Second">Second Term</option>
+                                <option value="Third">Third Term</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-large btn-magnetic">
+                            Access Official Result Sheet →
+                        </button>
+                    </form>
+
+                    <p class="widget-trust">
+                        🔒 Encrypted &amp; Verified by School Administration
+                    </p>
+                </div>
+
+                <!-- Decorative background accent -->
+                <div class="widget-accent" style="background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1000&q=80');"></div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================================== -->
+    <!-- SECTION 3: WHY CHOOSE US                                      -->
+    <!-- ============================================================== -->
+    <section class="why-choose-us" id="why-choose-us">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Why Choose Us</span>
+                <h2 class="section-title">Built for the <span class="highlight">Modern Mind.</span></h2>
+            </div>
+
+            <div class="pillars-grid">
+                <!-- Pillar 1 -->
+                <div class="pillar-card" data-tilt>
+                    <div class="pillar-image" style="background-image: url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80');"></div>
+                    <div class="pillar-body">
+                        <span class="pillar-number">01</span>
+                        <h3>Beyond the Textbook.</h3>
+                        <p>
+                            Our classrooms integrate interactive tech, coding fundamentals,
+                            and real-time digital grading through our proprietary SRMP system.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Pillar 2 -->
+                <div class="pillar-card" data-tilt>
+                    <div class="pillar-image" style="background-image: url('https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=800&q=80');"></div>
+                    <div class="pillar-body">
+                        <span class="pillar-number">02</span>
+                        <h3>Character Over Curriculum.</h3>
+                        <p>
+                            We pair intensive academic rigor with competitive sports, arts,
+                            and leadership programs to build well-rounded humans.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Pillar 3 -->
+                <div class="pillar-card" data-tilt>
+                    <div class="pillar-image" style="background-image: url('https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=800&q=80');"></div>
+                    <div class="pillar-body">
+                        <span class="pillar-number">03</span>
+                        <h3>Spaces That Inspire.</h3>
+                        <p>
+                            From advanced STEM laboratories to Olympic-grade athletic fields,
+                            our campus is engineered for excellence.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Decorative SVG connecting line -->
+            <svg class="pillar-connector" viewBox="0 0 800 40" preserveAspectRatio="none">
+                <path d="M 0 20 Q 200 0, 400 20 T 800 20" stroke="#3b82f6" stroke-width="2" fill="none" stroke-linecap="round" />
+            </svg>
+        </div>
+    </section>
+
+
+    <!-- ============================================================== -->
+    <!-- SECTION 4: CAMPUS LIFE (Horizontal Scroll Gallery)             -->
+    <!-- ============================================================== -->
+    <section class="campus-life" id="campus-life">
+        <div class="campus-sticky">
+            <div class="campus-header">
+                <span class="section-badge">Campus Life</span>
+                <h2 class="section-title">A Day in the Life at <span class="highlight">Our Academy.</span></h2>
+            </div>
+
+            <div class="campus-track">
+                <!-- Slide 1 -->
+                <div class="campus-slide">
+                    <div class="campus-slide-image" style="background-image: url('https://images.unsplash.com/photo-1567581935884-3349723552ca?auto=format&fit=crop&w=1200&q=80');"></div>
+                    <div class="campus-slide-content">
+                        <span class="slide-number">01 / 04</span>
+                        <h3>The Science &amp; Innovation Hub.</h3>
+                        <p>Where hypotheses become breakthroughs.</p>
+                    </div>
+                </div>
+
+                <!-- Slide 2 -->
+                <div class="campus-slide">
+                    <div class="campus-slide-image" style="background-image: url('https://images.unsplash.com/photo-1514306191717-452ec28c7814?auto=format&fit=crop&w=1200&q=80');"></div>
+                    <div class="campus-slide-content">
+                        <span class="slide-number">02 / 04</span>
+                        <h3>The Performing Arts Theatre.</h3>
+                        <p>Finding voices, building confidence on stage.</p>
+                    </div>
+                </div>
+
+                <!-- Slide 3 -->
+                <div class="campus-slide">
+                    <div class="campus-slide-image" style="background-image: url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=1200&q=80');"></div>
+                    <div class="campus-slide-content">
+                        <span class="slide-number">03 / 04</span>
+                        <h3>Championship Athletics.</h3>
+                        <p>Forging discipline and teamwork on the pitch.</p>
+                    </div>
+                </div>
+
+                <!-- Slide 4 -->
+                <div class="campus-slide">
+                    <div class="campus-slide-image" style="background-image: url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1200&q=80');"></div>
+                    <div class="campus-slide-content">
+                        <span class="slide-number">04 / 04</span>
+                        <h3>The Student Commons.</h3>
+                        <p>Collaborative spaces for lifelong friendships.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress bar -->
+            <div class="campus-progress">
+                <div class="campus-progress-bar"></div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================================== -->
+    <!-- SECTION 5: BY THE NUMBERS                                     -->
+    <!-- ============================================================== -->
+    <section class="by-the-numbers" id="by-the-numbers">
+        <div class="numbers-bg" style="background-image: url('https://images.unsplash.com/photo-1627556704290-2b1f5853ff78?auto=format&fit=crop&w=1920&q=80');"></div>
+        <div class="numbers-overlay"></div>
+
+        <div class="container numbers-container">
+            <div class="numbers-grid">
+                <div class="number-item">
+                    <span class="number-value" data-target="100">0</span>
+                    <span class="number-suffix">%</span>
+                    <p class="number-label">Of graduates transition to top-tier global universities.</p>
+                </div>
+                <div class="number-item">
+                    <span class="number-value" data-target="1450">0</span>
+                    <span class="number-suffix">+</span>
+                    <p class="number-label">Thriving across junior and senior secondary levels.</p>
+                </div>
+                <div class="number-item">
+                    <span class="number-value" data-target="12">0</span>
+                    <span class="number-suffix">:1</span>
+                    <p class="number-label">Dedicated teacher-to-student ratio ensuring personalized care.</p>
+                </div>
+                <div class="number-item">
+                    <span class="number-value" data-target="999">0</span>
+                    <span class="number-suffix">.%</span>
+                    <p class="number-label">Instant, 24/7 digital access to academic records via SRMP.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================================== -->
+    <!-- SECTION 6: ADMINISTRATION & STAFF PORTAL CALLOUT              -->
+    <!-- ============================================================== -->
+    <section class="admin-portal" id="admin-portal">
+        <div class="container">
+            <div class="admin-split">
+                <div class="admin-text">
+                    <span class="section-badge">For Educators</span>
+                    <h2 class="section-title">Powering Teachers with <span class="highlight">Smart Infrastructure.</span></h2>
+                    <p class="admin-body">
+                        We believe great educators should spend time teaching, not managing paperwork.
+                        Our custom-built School Result Management Portal allows staff to input grades,
+                        generate automated rankings, and publish professional report cards with zero friction.
+                    </p>
+                    <a href="/login" class="btn btn-primary btn-large">Teacher / Admin Portal Login →</a>
+                </div>
+
+                <div class="admin-visual">
+                    <div class="admin-mockup" style="background-image: url('https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=1000&q=80');">
+                        <!-- Floating UI elements (decorative) -->
+                        <div class="float-pill float-pill-1">Result Saved ✓</div>
+                        <div class="float-pill float-pill-2">Rank Calculated</div>
+                        <div class="float-pill float-pill-3">Report Generated</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================================== -->
+    <!-- SECTION 7: FOOTER & FINAL CTA                                 -->
+    <!-- ============================================================== -->
+    <footer class="site-footer" id="site-footer">
+        <div class="footer-reveal">
+            <div class="container">
+                <div class="footer-cta">
+                    <h2>Ready to Join a <span class="highlight">Tradition of Excellence?</span></h2>
+                    <p>Schedule a private campus tour today or begin your child's online application.</p>
+                    <a href="#" class="btn btn-primary btn-large">Start Application Process</a>
+                </div>
+
+                <div class="footer-grid">
+                    <div class="footer-brand">
+                        <div class="footer-logo">SRMP</div>
+                        <p>School Result Management Portal — digitizing academic excellence.</p>
+                    </div>
+
+                    <div class="footer-links">
+                        <h4>Portal</h4>
+                        <ul>
+                            <li><a href="#portal-widget">Student Result Checker</a></li>
+                            <li><a href="/login">Teacher Login</a></li>
+                            <li><a href="#">Session Archives</a></li>
+                            <li><a href="#">Print Verification</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-links">
+                        <h4>School</h4>
+                        <ul>
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Admissions</a></li>
+                            <li><a href="#">Curriculum</a></li>
+                            <li><a href="#">Campus Map</a></li>
+                            <li><a href="#">Contact Administration</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <p>&copy; 2026 School Result Management Portal. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- ============================================================== -->
+    <!-- SCRIPTS                                                       -->
+    <!-- ============================================================== -->
+    <script src="../public/js/app.js"></script>
+
+    <script>
+        // Register GSAP plugins
+        gsap.registerPlugin(ScrollTrigger);
+
+        // ---- Lenis Smooth Scroll ----
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smoothWheel: true,
+        });
+
+        lenis.on('scroll', ScrollTrigger.update);
+
+        gsap.ticker.add((time) => {
+            lenis.raf(time * 1000);
+        });
+        gsap.ticker.lagSmoothing(0, 0);
+
+        // ---- Wait for DOM ready ----
+        document.addEventListener('DOMContentLoaded', () => {
+            // ---- HERO: Kinetic Text Reveal ----
+            const heroTitle = document.querySelector('.hero-title');
+            if (heroTitle) {
+                const chars = heroTitle.innerHTML.split('').map(ch => {
+                    if (ch === ' ' || ch === '\n') return ' ';
+                    return `<span class="char">${ch}</span>`;
+                }).join('');
+                heroTitle.innerHTML = chars;
+
+                gsap.from('.hero-title .char', {
+                    y: 100,
+                    opacity: 0,
+                    duration: 0.8,
+                    ease: 'power4.out',
+                    stagger: 0.025,
+                    delay: 0.3,
+                });
+            }
+
+            // ---- HERO: Badge float ----
+            gsap.to('.hero-badge', {
+                y: -8,
+                duration: 2,
+                repeat: -1,
+                yoyo: true,
+                ease: 'sine.inOut',
+            });
+
+            // ---- HERO: Parallax mask ----
+            gsap.to('.hero-bg-mask', {
+                width: '100%',
+                scrollTrigger: {
+                    trigger: '.hero',
+                    start: 'top top',
+                    end: 'bottom top',
+                    scrub: 1,
+                },
+            });
+
+            gsap.to('.hero-bg-image', {
+                yPercent: 20,
+                scale: 1.1,
+                scrollTrigger: {
+                    trigger: '.hero',
+                    start: 'top top',
+                    end: 'bottom top',
+                    scrub: 1,
+                },
+            });
+
+            // ---- PORTAL WIDGET: Float-up ----
+            gsap.from('.widget-wrapper', {
+                y: 60,
+                rotateX: 5,
+                opacity: 0,
+                duration: 1.2,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '.portal-widget',
+                    start: 'top 85%',
+                    toggleActions: 'play none none reverse',
+                },
+            });
+
+            // ---- PORTAL WIDGET: Glow pulse ----
+            gsap.to('.widget-wrapper', {
+                boxShadow: '0 0 60px rgba(59, 130, 246, 0.15), 0 0 120px rgba(59, 130, 246, 0.05)',
+                duration: 3,
+                repeat: -1,
+                yoyo: true,
+                ease: 'sine.inOut',
+            });
+
+            // ---- WHY CHOOSE US: Staggered cards ----
+            gsap.from('.pillar-card', {
+                x: 100,
+                opacity: 0,
+                duration: 1,
+                ease: 'power3.out',
+                stagger: 0.25,
+                scrollTrigger: {
+                    trigger: '.pillars-grid',
+                    start: 'top 80%',
+                    toggleActions: 'play none none reverse',
+                },
+            });
+
+            // ---- WHY CHOOSE US: SVG line draw ----
+            const connector = document.querySelector('.pillar-connector path');
+            if (connector) {
+                const length = connector.getTotalLength();
+                connector.style.strokeDasharray = length;
+                connector.style.strokeDashoffset = length;
+
+                gsap.to(connector, {
+                    strokeDashoffset: 0,
+                    duration: 1.5,
+                    ease: 'power2.out',
+                    scrollTrigger: {
+                        trigger: '.pillars-grid',
+                        start: 'top 70%',
+                        toggleActions: 'play none none reverse',
+                    },
+                });
+            }
+
+            // ---- CAMPUS LIFE: Horizontal scroll ----
+            const campusSection = document.querySelector('.campus-life');
+            const track = document.querySelector('.campus-track');
+            const slides = document.querySelectorAll('.campus-slide');
+            const totalSlides = slides.length;
+
+            if (campusSection && track && totalSlides > 0) {
+                // Set track width
+                track.style.width = `${totalSlides * 100}vw`;
+
+                // Pin and scrub horizontally
+                gsap.to(track, {
+                    xPercent: -((totalSlides - 1) * 100),
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: campusSection,
+                        pin: true,
+                        scrub: 1,
+                        start: 'top top',
+                        end: () => `+=${totalSlides * 100}%`,
+                        invalidateOnRefresh: true,
+                    },
+                });
+
+                // Parallax within slides
+                slides.forEach((slide) => {
+                    const img = slide.querySelector('.campus-slide-image');
+                    if (img) {
+                        gsap.to(img, {
+                            xPercent: 15,
+                            ease: 'none',
+                            scrollTrigger: {
+                                trigger: slide,
+                                containerAnimation: gsap.utils.toArray('.campus-track'),
+                                start: 'left center',
+                                end: 'right center',
+                                scrub: 0.5,
+                            },
+                        });
+                    }
+                });
+
+                // Progress bar
+                const progressBar = document.querySelector('.campus-progress-bar');
+                if (progressBar) {
+                    gsap.to(progressBar, {
+                        scaleX: 1,
+                        ease: 'none',
+                        scrollTrigger: {
+                            trigger: campusSection,
+                            pin: true,
+                            scrub: 1,
+                            start: 'top top',
+                            end: () => `+=${totalSlides * 100}%`,
+                            invalidateOnRefresh: true,
+                        },
+                    });
+                }
+            }
+
+            // ---- BY THE NUMBERS: Counter ----
+            const numberItems = document.querySelectorAll('.number-value');
+            numberItems.forEach((el) => {
+                const target = parseInt(el.dataset.target, 10);
+                const suffix = el.nextElementSibling ? el.nextElementSibling.textContent : '';
+
+                gsap.fromTo(el,
+                    { innerText: 0 },
+                    {
+                        innerText: target,
+                        duration: 2.5,
+                        ease: 'power2.out',
+                        snap: { innerText: 1 },
+                        scrollTrigger: {
+                            trigger: '.by-the-numbers',
+                            start: 'top 70%',
+                            toggleActions: 'play none none reverse',
+                        },
+                        onUpdate: () => {
+                            // Format with commas for large numbers
+                            const val = parseInt(el.innerText, 10);
+                            if (target >= 1000) {
+                                el.innerText = val.toLocaleString();
+                            } else {
+                                el.innerText = val;
+                            }
+                            // Re-append suffix if needed (handled in HTML)
+                        },
+                    }
+                );
+            });
+
+            // ---- BY THE NUMBERS: Background scale ----
+            gsap.to('.numbers-bg', {
+                scale: 1.0,
+                ease: 'power2.out',
+                scrollTrigger: {
+                    trigger: '.by-the-numbers',
+                    start: 'top bottom',
+                    end: 'bottom top',
+                    scrub: 1,
+                },
+            });
+
+            // ---- ADMIN PORTAL: Split-screen parallax ----
+            gsap.to('.admin-visual', {
+                y: -20,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: '.admin-portal',
+                    start: 'top bottom',
+                    end: 'bottom top',
+                    scrub: 1.5,
+                },
+            });
+
+            // ---- ADMIN PORTAL: Floating pills ----
+            const pills = document.querySelectorAll('.float-pill');
+            pills.forEach((pill, i) => {
+                const delay = i * 0.8;
+                const xOffset = (i % 2 === 0) ? 20 : -20;
+                gsap.to(pill, {
+                    y: 15 * (i % 2 === 0 ? 1 : -1),
+                    x: xOffset,
+                    duration: 2 + i * 0.5,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: 'sine.inOut',
+                    delay: delay,
+                });
+            });
+
+            // ---- FOOTER: Curtain reveal ----
+            gsap.from('.footer-reveal', {
+                y: 100,
+                opacity: 0,
+                duration: 1.2,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '.site-footer',
+                    start: 'top 85%',
+                    toggleActions: 'play none none reverse',
+                },
+            });
+
+            // ---- Magnetic Button Effect (simple version) ----
+            document.querySelectorAll('.btn-magnetic').forEach((btn) => {
+                btn.addEventListener('mousemove', (e) => {
+                    const rect = btn.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    const strength = 8;
+                    gsap.to(btn, {
+                        x: x / rect.width * strength,
+                        y: y / rect.height * strength,
+                        duration: 0.3,
+                        ease: 'power2.out',
+                    });
+                });
+                btn.addEventListener('mouseleave', () => {
+                    gsap.to(btn, {
+                        x: 0,
+                        y: 0,
+                        duration: 0.5,
+                        ease: 'power2.out',
+                    });
+                });
+            });
+
+            // ---- 3D Tilt on Pillar Cards ----
+            document.querySelectorAll('[data-tilt]').forEach((card) => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = (e.clientX - rect.left) / rect.width - 0.5;
+                    const y = (e.clientY - rect.top) / rect.height - 0.5;
+                    const maxTilt = 10;
+                    gsap.to(card, {
+                        rotateY: x * maxTilt,
+                        rotateX: -y * maxTilt,
+                        duration: 0.4,
+                        ease: 'power2.out',
+                        overwrite: 'auto',
+                    });
+                });
+                card.addEventListener('mouseleave', () => {
+                    gsap.to(card, {
+                        rotateY: 0,
+                        rotateX: 0,
+                        duration: 0.6,
+                        ease: 'power2.out',
+                    });
+                });
+            });
+
+            // ---- Portal Form handler ----
+            const form = document.getElementById('resultCheckForm');
+            if (form) {
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const studentId = document.getElementById('studentId').value.trim();
+                    const session = document.getElementById('sessionSelect').value;
+                    const term = document.getElementById('termSelect').value;
+
+                    if (!studentId || !session || !term) {
+                        alert('Please fill in all fields.');
+                        return;
+                    }
+
+                    // Redirect to view-result with query params
+                    const url = `/view-result?studentId=${encodeURIComponent(studentId)}&session=${encodeURIComponent(session)}&term=${encodeURIComponent(term)}`;
+                    window.location.href = url;
+                });
+            }
+        });
+    </script>
+
+    <!-- Link to app.js -->
+    <script src="/js/app.js"></script>
+</body>
+</html>

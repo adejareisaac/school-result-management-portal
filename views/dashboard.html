@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard · Greenwood Academy</title>
+    <link rel="stylesheet" href="/css/global.css" />
+    <link rel="stylesheet" href="/css/dashboard.css" />
+</head>
+<body>
+
+    <!-- ============================================================ -->
+    <!-- 3D PRELOADER – Fades out once data is loaded                 -->
+    <!-- ============================================================ -->
+    <div id="preloader">
+        <div class="loader-container">
+            <div class="loader-3d">
+                <div class="cube">
+                    <div class="face front"></div>
+                    <div class="face back"></div>
+                    <div class="face right"></div>
+                    <div class="face left"></div>
+                    <div class="face top"></div>
+                    <div class="face bottom"></div>
+                </div>
+            </div>
+            <p class="loader-text">Loading Greenwood Academy...</p>
+            <div class="loader-progress">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- TOP NAVIGATION                                               -->
+    <!-- ============================================================ -->
+    <header class="app-header">
+        <div class="header-left">
+            <div class="brand">
+                <span class="logo-icon">🏫</span>
+                <span class="logo-text">Greenwood Academy</span>
+                <span class="portal-badge">SRMP</span>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="user-profile">
+                <div class="user-avatar">👤</div>
+                <div class="user-info">
+                    <span class="user-name" id="userName">Admin</span>
+                    <span class="user-role">Administrator</span>
+                </div>
+            </div>
+            <form action="/logout" method="POST" class="logout-form">
+                <button type="submit" class="btn-logout">
+                    <span>🚪</span> Logout
+                </button>
+            </form>
+        </div>
+    </header>
+
+    <!-- ============================================================ -->
+    <!-- APP LAYOUT                                                   -->
+    <!-- ============================================================ -->
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <nav class="sidebar-nav">
+                <a href="/dashboard" class="nav-item active">
+                    <span class="nav-icon-wrap"><span class="nav-icon">📊</span></span>
+                    <span class="nav-label">Dashboard</span>
+                </a>
+                <a href="/students" class="nav-item">
+                    <span class="nav-icon-wrap"><span class="nav-icon">👩‍🎓</span></span>
+                    <span class="nav-label">Students</span>
+                </a>
+                <a href="/results" class="nav-item">
+                    <span class="nav-icon-wrap"><span class="nav-icon">📝</span></span>
+                    <span class="nav-label">Results</span>
+                </a>
+                <a href="/" class="nav-item">
+                    <span class="nav-icon-wrap"><span class="nav-icon">🏠</span></span>
+                    <span class="nav-label">Homepage</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="sidebar-version">v2.0.0</div>
+                <div class="sidebar-status">
+                    <span class="status-dot"></span> System Online
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content" id="mainContent">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title">Dashboard</h1>
+                    <p class="page-subtitle">Welcome back! Here's what's happening with your school today.</p>
+                </div>
+                <div class="page-actions">
+                    <span class="date-display" id="currentDate"></span>
+                </div>
+            </div>
+
+<!-- Stats Cards -->
+<div class="stats-grid" id="statsGrid">
+    <div class="stat-card stat-students">
+        <div class="stat-icon-wrap"><span class="stat-icon">👩‍🎓</span></div>
+        <div class="stat-info">
+            <span class="stat-value" id="totalStudents">0</span>
+            <span class="stat-label">Total Students</span>
+        </div>
+        <div class="stat-trend trend-up" id="studentsTrend">↑ 0%</div>
+    </div>
+    <div class="stat-card stat-results">
+        <div class="stat-icon-wrap"><span class="stat-icon">📚</span></div>
+        <div class="stat-info">
+            <span class="stat-value" id="totalResults">0</span>
+            <span class="stat-label">Results Uploaded</span>
+        </div>
+        <div class="stat-trend trend-up" id="resultsTrend">↑ 0%</div>
+    </div>
+<!-- Replace the stat-session card with this -->
+<div class="stat-card stat-session">
+    <div class="stat-icon-wrap"><span class="stat-icon">📅</span></div>
+    <div class="stat-info">
+        <span class="stat-value" id="currentSession">—</span>
+        <span class="stat-label">
+            Current Session
+            <span class="status-badge" id="sessionStatus">Active</span>
+        </span>
+    </div>
+</div>
+    <div class="stat-card stat-login">
+        <div class="stat-icon-wrap"><span class="stat-icon">⏳</span></div>
+        <div class="stat-info">
+            <span class="stat-value" id="lastLogin">—</span>
+            <span class="stat-label">Last Login</span>
+        </div>
+        <div class="stat-trend" id="loginStatus">—</div>
+    </div>
+</div>
+
+            <!-- Quick Actions -->
+            <section class="quick-actions">
+                <div class="section-header">
+                    <h2>Quick Actions</h2>
+                    <p>Common tasks to help you manage your school efficiently.</p>
+                </div>
+                <div class="action-grid">
+                    <a href="/students" class="action-btn">
+                        <span class="action-icon">➕</span>
+                        <span class="action-text">Add Student</span>
+                        <span class="action-desc">Register new student</span>
+                    </a>
+                    <a href="/results" class="action-btn">
+                        <span class="action-icon">📤</span>
+                        <span class="action-text">Upload Results</span>
+                        <span class="action-desc">Add exam scores</span>
+                    </a>
+                    <a href="/view-result" class="action-btn">
+                        <span class="action-icon">🔍</span>
+                        <span class="action-text">View Result</span>
+                        <span class="action-desc">Check student performance</span>
+                    </a>
+                    <a href="/students" class="action-btn">
+                        <span class="action-icon">📊</span>
+                        <span class="action-text">Manage Students</span>
+                        <span class="action-desc">Edit or delete records</span>
+                    </a>
+                </div>
+            </section>
+
+<!-- Recent Activity (Dynamic) -->
+<section class="recent-activity">
+    <h2>Recent Activity</h2>
+    <div class="activity-list" id="activityList">
+        <!-- Items will be injected by JavaScript -->
+        <div class="activity-item" style="text-align:center; color:#94a3b8; padding:20px;">
+            Loading activities...
+        </div>
+    </div>
+</section>
+        </main>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="/js/app.js"></script>
+    <script src="/js/dashboard.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manage Results · Greenwood Academy</title>
+    <link rel="stylesheet" href="/css/global.css" />
+    <link rel="stylesheet" href="/css/results.css" />
+</head>
+<body>
+
+    <!-- ============================================================ -->
+    <!-- 3D PRELOADER – Fades out once data is loaded                 -->
+    <!-- ============================================================ -->
+    <div id="preloader">
+        <div class="loader-container">
+            <div class="loader-3d">
+                <div class="cube">
+                    <div class="face front"></div>
+                    <div class="face back"></div>
+                    <div class="face right"></div>
+                    <div class="face left"></div>
+                    <div class="face top"></div>
+                    <div class="face bottom"></div>
+                </div>
+            </div>
+            <p class="loader-text">Loading Results Data...</p>
+            <div class="loader-progress">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- TOP NAVIGATION                                               -->
+    <!-- ============================================================ -->
+    <header class="app-header">
+        <div class="header-left">
+            <div class="brand">
+                <span class="logo-icon">🏫</span>
+                <span class="logo-text">Greenwood Academy</span>
+                <span class="portal-badge">SRMP</span>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="user-profile">
+                <div class="user-avatar">👤</div>
+                <div class="user-info">
+                    <span class="user-name" id="userName">Admin</span>
+                    <span class="user-role">Administrator</span>
+                </div>
+            </div>
+            <form action="/logout" method="POST" class="logout-form">
+                <button type="submit" class="btn-logout">
+                    <span>🚪</span> Logout
+                </button>
+            </form>
+        </div>
+    </header>
+
+    <!-- ============================================================ -->
+    <!-- APP LAYOUT                                                   -->
+    <!-- ============================================================ -->
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <nav class="sidebar-nav">
+                <a href="/dashboard" class="nav-item">
+                    <span class="nav-icon-wrap"><span class="nav-icon">📊</span></span>
+                    <span class="nav-label">Dashboard</span>
+                </a>
+                <a href="/students" class="nav-item">
+                    <span class="nav-icon-wrap"><span class="nav-icon">👩‍🎓</span></span>
+                    <span class="nav-label">Students</span>
+                </a>
+                <a href="/results" class="nav-item active">
+                    <span class="nav-icon-wrap"><span class="nav-icon">📝</span></span>
+                    <span class="nav-label">Results</span>
+                </a>
+                <a href="/" class="nav-item">
+                    <span class="nav-icon-wrap"><span class="nav-icon">🏠</span></span>
+                    <span class="nav-label">Homepage</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="sidebar-version">v2.0.0</div>
+                <div class="sidebar-status">
+                    <span class="status-dot"></span> System Online
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+<main class="main-content" id="mainContent">
+    <!-- Page Header -->
+    <div class="page-header">
+        <div>
+            <h1 class="page-title">Student Results</h1>
+            <p class="page-subtitle">Select a student to view and manage their full report card.</p>
+        </div>
+        <div class="page-actions">
+            <div class="session-term-selector">
+                <select id="reportSession">
+                    <option value="2025/2026">2025/2026</option>
+                    <option value="2024/2025">2024/2025</option>
+                    <option value="2023/2024">2023/2024</option>
+                </select>
+                <select id="reportTerm">
+                    <option value="First">First</option>
+                    <option value="Second">Second</option>
+                    <option value="Third">Third</option>
+                </select>
+                <button class="btn btn-secondary" id="refreshStudentsBtn">🔄 Refresh</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-bar">
+        <div class="search-input-wrap">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchInput" placeholder="Search by name or student ID..." />
+            <button type="button" class="clear-input" id="clearSearchBtn" style="display:none;">✕</button>
+        </div>
+        <button class="btn btn-secondary" id="searchBtn">Search</button>
+    </div>
+
+    <!-- Stats Row -->
+    <div class="stats-row">
+        <span class="stats-count" id="studentsCount">0 students</span>
+    </div>
+
+    <!-- Students Table -->
+    <div class="table-container">
+        <table class="data-table" id="studentsTable">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Student ID</th>
+                    <th>Name</th>
+                    <th>Class</th>
+                    <th>Session</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="studentsTableBody">
+                <!-- Injected via JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state" id="emptyState" style="display:none;">
+        <span class="empty-icon">📭</span>
+        <h3>No students found</h3>
+        <p>Add students first from the Students page.</p>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- REPORT CARD MODAL (Large)                                     -->
+    <!-- ============================================================ -->
+    <div class="modal" id="reportModal">
+        <div class="modal-content modal-large">
+            <span class="modal-close">&times;</span>
+            <div id="reportCardContainer">
+                <!-- Report card content will be injected here -->
+                <div style="text-align:center; padding:40px;">Loading report...</div>
+            </div>
+        </div>
+    </div>
+</main>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="/js/app.js"></script>
+    <script src="/js/results.js" defer></script>
+</body>
+</html>

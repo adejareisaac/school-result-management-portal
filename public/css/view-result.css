@@ -1,0 +1,380 @@
+/* ===== VIEW RESULT (Public Search) ===== */
+.public-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 32px;
+    background: #ffffff;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.public-header .logo {
+    font-weight: 900;
+    font-size: 1.3rem;
+    color: #0b1e33;
+}
+
+.view-result-main {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 24px;
+}
+
+.view-result-main .page-title {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.view-result-main .subtitle {
+    text-align: center;
+    color: #64748b;
+    margin-bottom: 32px;
+}
+
+.lookup-form {
+    background: #ffffff;
+    padding: 32px 36px;
+    border-radius: 24px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    border: 1px solid #f1f5f9;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: flex-end;
+    margin-bottom: 32px;
+}
+
+.lookup-form .form-group {
+    flex: 1;
+    min-width: 160px;
+}
+
+.lookup-form label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: #334155;
+    margin-bottom: 4px;
+}
+
+.lookup-form input,
+.lookup-form select {
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    background: #f8fafc;
+    font-size: 0.95rem;
+}
+
+.lookup-form input:focus,
+.lookup-form select:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.lookup-form .btn {
+    flex-shrink: 0;
+}
+
+.error-message {
+    background: #fef2f2;
+    color: #b91c1c;
+    border-radius: 12px;
+    padding: 16px 20px;
+    border-left: 4px solid #b91c1c;
+    margin-top: 16px;
+}
+
+/* ===== RESULT SHEET (display) ===== */
+.result-sheet-wrapper {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 40px 48px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    border: 1px solid #f1f5f9;
+    margin-top: 32px;
+}
+
+.school-header {
+    text-align: center;
+    border-bottom: 2px solid #2563eb;
+    padding-bottom: 20px;
+    margin-bottom: 24px;
+}
+
+.school-header .school-name {
+    font-size: 2rem;
+    font-weight: 900;
+    color: #0b1e33;
+    letter-spacing: -0.02em;
+}
+
+.school-header .school-address {
+    font-size: 0.85rem;
+    color: #64748b;
+    margin: 4px 0 12px;
+}
+
+.school-header .report-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #0b1e33;
+}
+
+.school-header .term-info {
+    font-weight: 600;
+    color: #2563eb;
+}
+
+.student-profile {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 24px;
+    background: #f8fafc;
+    padding: 16px 20px;
+    border-radius: 16px;
+    margin-bottom: 24px;
+    font-size: 0.9rem;
+}
+
+.student-profile .profile-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 24px;
+    width: 100%;
+}
+
+.student-profile strong {
+    color: #475569;
+}
+
+.cognitive-domain h2,
+.performance-summary h3,
+.grade-scale h3,
+.attendance-summary h3,
+.affective-domain h3,
+.psychomotor-domain h3,
+.grade-analysis h3,
+.remarks h4 {
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #0b1e33;
+}
+
+.result-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 24px;
+    font-size: 0.9rem;
+}
+
+.result-table th {
+    background: #f1f5f9;
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: 600;
+    color: #334155;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.result-table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.result-table tr:hover {
+    background: #f8fafc;
+}
+
+.performance-summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 32px;
+    background: #f8fafc;
+    padding: 16px 20px;
+    border-radius: 16px;
+    margin-bottom: 24px;
+}
+
+.summary-item {
+    display: flex;
+    gap: 8px;
+}
+
+.summary-item .label {
+    font-weight: 600;
+    color: #475569;
+}
+
+.summary-item .value {
+    font-weight: 800;
+    color: #0b1e33;
+}
+
+.grade-scale .scale-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+    margin-bottom: 24px;
+    font-size: 0.85rem;
+}
+
+.scale-grid span {
+    background: #f1f5f9;
+    padding: 4px 16px;
+    border-radius: 100px;
+}
+
+.attendance-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 32px;
+    background: #f8fafc;
+    padding: 12px 20px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+}
+
+.attendance-grid div {
+    display: flex;
+    gap: 6px;
+}
+
+.attendance-grid span:first-child {
+    font-weight: 600;
+    color: #475569;
+}
+
+.rating-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    margin-bottom: 16px;
+}
+
+.rating-table th {
+    background: #f1f5f9;
+    padding: 8px 12px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.rating-table td {
+    padding: 6px 12px;
+    border-bottom: 1px solid #f1f5f9;
+    text-align: center;
+}
+
+.rating-table td:first-child {
+    text-align: left;
+    font-weight: 500;
+}
+
+.rating-indices {
+    font-size: 0.8rem;
+    color: #64748b;
+    margin-bottom: 24px;
+}
+
+.grade-count-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+    background: #f8fafc;
+    padding: 12px 20px;
+    border-radius: 12px;
+    margin-bottom: 12px;
+}
+
+.grade-count-grid div {
+    display: flex;
+    gap: 8px;
+    font-weight: 600;
+}
+
+.grade-count-grid span:first-child {
+    color: #475569;
+}
+
+.total-subjects {
+    font-weight: 600;
+    color: #0b1e33;
+}
+
+.remarks {
+    margin-top: 32px;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 24px;
+}
+
+.teacher-remark,
+.principal-remark {
+    margin-bottom: 24px;
+}
+
+.teacher-remark p,
+.principal-remark p {
+    background: #f8fafc;
+    padding: 12px 16px;
+    border-radius: 12px;
+    min-height: 40px;
+    font-style: italic;
+}
+
+.signature-line {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin-top: 8px;
+    font-size: 0.9rem;
+}
+
+.signature-line span {
+    display: inline-block;
+}
+
+.signature-line span:last-child {
+    border-bottom: 1px solid #94a3b8;
+    min-width: 120px;
+}
+
+.result-footer {
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: #94a3b8;
+}
+
+.result-footer .disclaimer {
+    width: 100%;
+    text-align: center;
+    margin-top: 8px;
+}
+
+/* responsive adjustments */
+@media (max-width: 768px) {
+    .result-sheet-wrapper {
+        padding: 20px 16px;
+    }
+    .lookup-form {
+        flex-direction: column;
+    }
+    .lookup-form .form-group {
+        min-width: 100%;
+    }
+    .student-profile {
+        flex-direction: column;
+        gap: 4px;
+    }
+    .performance-summary {
+        flex-direction: column;
+        gap: 8px;
+    }
+}
