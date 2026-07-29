@@ -19,7 +19,6 @@ if (!dbExists) {
 
 require('dotenv').config();
 const express = require('express');
-const path = require('path');
 
 // ---- Import Configs ----
 const sessionMiddleware = require('./config/session');
