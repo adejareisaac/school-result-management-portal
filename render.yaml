@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: school-result-management-portal
+    env: node
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      - key: SESSION_SECRET
+        value: your-super-secret-key-change-this
