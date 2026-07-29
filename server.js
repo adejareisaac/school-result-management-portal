@@ -1,18 +1,12 @@
-// ================================================================
-// AUTO-SEED DATABASE ON STARTUP (for Render/Railway)
-// ================================================================
-
 const fs = require('fs');
 const path = require('path');
 
-// Check if database exists
 const dbPath = path.join(__dirname, 'database/school.db');
 const dbExists = fs.existsSync(dbPath);
 
 if (!dbExists) {
     console.log('🔧 Database not found. Running init script to create and seed...');
-    // Run the init script synchronously before starting the server
-    require('./database/init.js');
+    require('./database/init.js')(false); // <-- Pass false to keep database open
 } else {
     console.log('✅ Database already exists. Skipping init.');
 }

@@ -93,8 +93,8 @@ function calculateGrade(percentage) {
     return 'F';
 }
 
-// ---------- Main ----------
-async function initDatabase() {
+// ---------- Main init function ----------
+async function initDatabase(closeAfter = true) {
     try {
         console.log('🔄 Initializing database...');
 
@@ -248,19 +248,18 @@ async function initDatabase() {
 
             for (const student of insertedStudents) {
                 for (const term of terms) {
-                    // --- Results (all 14 subjects) with total ≤ 100 ---
+                    // --- Results ---
                     for (const subject of subjects) {
-                        // Generate CA1, CA2, Exam such that sum ≤ 100
-                        const ca1 = Math.floor(Math.random() * 20) + 10; // 10-30
-                        const ca2 = Math.floor(Math.random() * 20) + 10; // 10-30
-                        let exam = Math.floor(Math.random() * 40) + 20; // 20-60
+                        const ca1 = Math.floor(Math.random() * 20) + 10;
+                        const ca2 = Math.floor(Math.random() * 20) + 10;
+                        let exam = Math.floor(Math.random() * 40) + 20;
                         let total = ca1 + ca2 + exam;
                         if (total > 100) {
                             exam = 100 - ca1 - ca2;
                             if (exam < 0) exam = 0;
                             total = ca1 + ca2 + exam;
                         }
-                        const percentage = total; // since max is 100
+                        const percentage = total;
                         const grade = calculateGrade(percentage);
                         const position = Math.floor(Math.random() * 5) + 1;
                         const remark = remarksList[Math.floor(Math.random() * remarksList.length)];
@@ -281,7 +280,7 @@ async function initDatabase() {
 
                     // --- Attendance ---
                     const daysOpened = 150;
-                    const daysPresent = Math.floor(Math.random() * 20) + 130; // 130-150
+                    const daysPresent = Math.floor(Math.random() * 20) + 130;
                     const daysAbsent = daysOpened - daysPresent;
                     await insert('attendance', {
                         student_id: student.student_id,
@@ -292,7 +291,7 @@ async function initDatabase() {
                         days_absent: daysAbsent
                     });
 
-                    // --- Affective Domain ---
+                    // --- Affective ---
                     const affectiveTraits = {
                         attentiveness: Math.floor(Math.random() * 5) + 1,
                         honesty: Math.floor(Math.random() * 5) + 1,
@@ -312,7 +311,7 @@ async function initDatabase() {
                         ...affectiveTraits
                     });
 
-                    // --- Psychomotor Domain ---
+                    // --- Psychomotor ---
                     const psychomotorTraits = {
                         handling_tools: Math.floor(Math.random() * 5) + 1,
                         drawing: Math.floor(Math.random() * 5) + 1,
@@ -328,7 +327,7 @@ async function initDatabase() {
                         ...psychomotorTraits
                     });
 
-                    // --- Report Remarks ---
+                    // --- Remarks ---
                     const teacherRemarks = [
                         `${student.name} is a bright and diligent student. Always inquisitive and ready to learn.`,
                         `${student.name} shows great improvement and dedication.`,
@@ -361,13 +360,26 @@ async function initDatabase() {
         }
 
         console.log('🎉 Database initialization complete!');
+
+        // Close the database only if we're running standalone
+        if (closeAfter) {
+            db.close();
+            console.log('🔒 Database connection closed.');
+        }
     } catch (error) {
         console.error('❌ Error during initialization:', error.message);
         console.error('Stack:', error.stack);
         process.exit(1);
-    } finally {
-        db.close();
     }
 }
 
-initDatabase();
+// ---- Export for use in server.js ----
+module.exports = initDatabase;
+
+// ---- If run directly as standalone script ----
+if (require.main === module) {
+    initDatabase(true).catch(err => {
+        console.error(err);
+        process.exit(1);
+    });
+}
