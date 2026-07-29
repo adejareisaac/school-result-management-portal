@@ -1,3 +1,22 @@
+// ================================================================
+// AUTO-SEED DATABASE ON STARTUP (for Render/Railway)
+// ================================================================
+
+const fs = require('fs');
+const path = require('path');
+
+// Check if database exists
+const dbPath = path.join(__dirname, 'database/school.db');
+const dbExists = fs.existsSync(dbPath);
+
+if (!dbExists) {
+    console.log('🔧 Database not found. Running init script to create and seed...');
+    // Run the init script synchronously before starting the server
+    require('./database/init.js');
+} else {
+    console.log('✅ Database already exists. Skipping init.');
+}
+
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
