@@ -37,6 +37,9 @@
     <header class="app-header">
         <div class="header-left">
             <div class="brand">
+                <!-- Native Dashboard Hamburger Button -->
+                <button class="dashboard-toggle-btn" id="sidebarToggle">☰</button>
+                
                 <span class="logo-icon">🏫</span>
                 <span class="logo-text">Greenwood Academy</span>
                 <span class="portal-badge">SRMP</span>
@@ -145,87 +148,87 @@
                 <p>Start by adding your first student using the "Add Student" button above.</p>
             </div>
 
-<!-- Add/Edit Modal -->
-<div class="modal" id="studentModal">
-    <div class="modal-content">
-        <span class="modal-close">&times;</span>
-        <h2 id="modalTitle">Add Student</h2>
-        <form id="studentForm">
-            <input type="hidden" id="editId" />
+            <!-- Add/Edit Modal -->
+            <div class="modal" id="studentModal">
+                <div class="modal-content">
+                    <span class="modal-close">&times;</span>
+                    <h2 id="modalTitle">Add Student</h2>
+                    <form id="studentForm">
+                        <input type="hidden" id="editId" />
 
-            <!-- Basic Information -->
-            <div class="form-group">
-                <label for="studentName">Full Name <span class="required">*</span></label>
-                <input type="text" id="studentName" placeholder="Enter full name" required />
-            </div>
-            <div class="form-group">
-                <label for="studentGender">Gender <span class="required">*</span></label>
-                <select id="studentGender" required>
-                    <option value="">Select gender</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Other">Other</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="studentClass">Class <span class="required">*</span></label>
-                <input type="text" id="studentClass" placeholder="e.g., SS3" required />
-            </div>
-            <div class="form-group">
-                <label for="studentSession">Academic Session <span class="required">*</span></label>
-                <select id="studentSession" required>
-                    <option value="2025/2026">2025/2026</option>
-                    <option value="2024/2025">2024/2025</option>
-                    <option value="2023/2024">2023/2024</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="studentId">Student ID</label>
-                <input type="text" id="studentId" placeholder="Leave blank to auto-generate" />
-                <small class="form-hint">Leave blank to auto-generate a unique ID</small>
-            </div>
+                        <!-- Basic Information -->
+                        <div class="form-group">
+                            <label for="studentName">Full Name <span class="required">*</span></label>
+                            <input type="text" id="studentName" placeholder="Enter full name" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="studentGender">Gender <span class="required">*</span></label>
+                            <select id="studentGender" required>
+                                <option value="">Select gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="studentClass">Class <span class="required">*</span></label>
+                            <input type="text" id="studentClass" placeholder="e.g., SS3" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="studentSession">Academic Session <span class="required">*</span></label>
+                            <select id="studentSession" required>
+                                <option value="2025/2026">2025/2026</option>
+                                <option value="2024/2025">2024/2025</option>
+                                <option value="2023/2024">2023/2024</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="studentId">Student ID</label>
+                            <input type="text" id="studentId" placeholder="Leave blank to auto-generate" />
+                            <small class="form-hint">Leave blank to auto-generate a unique ID</small>
+                        </div>
 
-            <!-- Profile Section -->
-            <hr />
-            <h3>Student Profile <span style="font-weight:400;font-size:0.8rem;color:#94a3b8;">(DOB, Age are required)</span></h3>
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="studentDOB">Date of Birth <span class="required">*</span></label>
-                    <input type="text" id="studentDOB" placeholder="e.g., 12-Aug-2004" required />
-                </div>
-                <div class="form-group">
-                    <label for="studentAge">Age <span class="required">*</span></label>
-                    <input type="text" id="studentAge" placeholder="e.g., 14yrs" required />
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="studentHeight">Height (cm)</label>
-                    <input type="text" id="studentHeight" placeholder="e.g., 76.0" />
-                </div>
-                <div class="form-group">
-                    <label for="studentWeight">Weight (kg)</label>
-                    <input type="text" id="studentWeight" placeholder="e.g., 48.0" />
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="studentClub">Club/Society</label>
-                    <input type="text" id="studentClub" placeholder="e.g., Cultural Dance, Choir" />
-                </div>
-                <div class="form-group">
-                    <label for="studentFavColor">Favourite Colour</label>
-                    <input type="text" id="studentFavColor" placeholder="e.g., Lilac" />
-                </div>
-            </div>
+                        <!-- Profile Section -->
+                        <hr />
+                        <h3>Student Profile <span style="font-weight:400;font-size:0.8rem;color:#94a3b8;">(DOB, Age are required)</span></h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="studentDOB">Date of Birth <span class="required">*</span></label>
+                                <input type="text" id="studentDOB" placeholder="e.g., 12-Aug-2004" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="studentAge">Age <span class="required">*</span></label>
+                                <input type="text" id="studentAge" placeholder="e.g., 14yrs" required />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="studentHeight">Height (cm)</label>
+                                <input type="text" id="studentHeight" placeholder="e.g., 76.0" />
+                            </div>
+                            <div class="form-group">
+                                <label for="studentWeight">Weight (kg)</label>
+                                <input type="text" id="studentWeight" placeholder="e.g., 48.0" />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="studentClub">Club/Society</label>
+                                <input type="text" id="studentClub" placeholder="e.g., Cultural Dance, Choir" />
+                            </div>
+                            <div class="form-group">
+                                <label for="studentFavColor">Favourite Colour</label>
+                                <input type="text" id="studentFavColor" placeholder="e.g., Lilac" />
+                            </div>
+                        </div>
 
-            <div class="form-actions">
-                <button type="button" class="btn btn-secondary" id="cancelModalBtn">Cancel</button>
-                <button type="submit" class="btn btn-primary" id="saveStudentBtn">Save Student</button>
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" id="cancelModalBtn">Cancel</button>
+                            <button type="submit" class="btn btn-primary" id="saveStudentBtn">Save Student</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </form>
-    </div>
-</div>
 
             <!-- Delete Confirmation Modal -->
             <div class="modal" id="deleteModal">

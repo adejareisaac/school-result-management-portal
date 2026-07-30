@@ -1057,3 +1057,15 @@
 .session-term-selector .btn-refresh:active {
     transform: scale(0.98);
 }
+
+.table-container {
+    background: #ffffff;
+    border-radius: 20px;
+    overflow-x: auto; /* ADDED: scrolls horizontally on mobile */
+    border: 1px solid #f1f5f9;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+/* Inside @media (max-width: 768px) remove the previous min-width definition */
+@media (max-width: 768px) {
+    .data-table { min-width: 650px; } /* Forces table to scroll if too wide */
+}

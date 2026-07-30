@@ -56,6 +56,29 @@
     margin-bottom: 32px;
 }
 
+/* A4 Paper styled container for the result */
+.result-pdf-container {
+    display: none; /* Hidden initially */
+    width: 100%;
+    padding: 0 20px 40px;
+}
+.result-pdf-container.show {
+    display: block;
+}
+.a4-paper {
+    background: white;
+    width: 100%;
+    max-width: 210mm; /* A4 width */
+    margin: 0 auto;
+    padding: 15mm 15mm 15mm 15mm;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+    border-radius: 8px;
+    font-size: 11pt;
+}
+@media (max-width: 768px) {
+    .a4-paper { padding: 6mm; }
+}
+
 /* ---- Lookup Form (screen only) ---- */
 .lookup-form {
     background: #ffffff;

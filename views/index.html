@@ -22,47 +22,58 @@
 </head>
 <body>
 
+    <!-- ===== TOP NAVIGATION ===== -->
+    <nav class="public-nav">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">Greenwood Academy</a>
+            
+            <!-- Hamburger Button (Visible on Mobile) -->
+            <button class="nav-hamburger" id="navHamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <!-- Nav Links (Desktop & Mobile Drawer) -->
+            <div class="nav-links" id="navLinks">
+                <a href="#why-choose-us">Why Choose Us</a>
+                <a href="#portal-widget">Check Results</a>
+                <a href="/login" class="btn btn-primary">Teacher Login</a>
+            </div>
+        </div>
+    </nav>
+
     <!-- ============================================================== -->
     <!-- SECTION 1: HERO                                               -->
     <!-- ============================================================== -->
     <section class="hero" id="hero">
-        <!-- Background Image Container -->
         <div class="hero-bg-mask">
             <div class="hero-bg-image" style="background-image: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1920&q=80');"></div>
         </div>
 
-        <!-- Overlay Gradient -->
         <div class="hero-overlay"></div>
 
-        <!-- Content -->
         <div class="hero-content container">
-            <!-- Eyebrow Badge -->
             <div class="hero-badge">
                 <span class="badge-icon">⚡</span>
                 2026/2027 Admissions Now Open — Secure Your Child's Future
             </div>
 
-            <!-- Main Headline -->
             <h1 class="hero-title">
                 Where Future Leaders <br /><span class="highlight">Master Tomorrow.</span>
             </h1>
 
-            <!-- Sub-headline -->
             <p class="hero-sub">
                 Blending rigorous academic discipline with cutting-edge digital learning.
                 We groom thinkers, innovators, and moral compasses for a rapidly evolving world.
             </p>
 
-            <!-- CTAs -->
             <div class="hero-cta">
                 <a href="#why-choose-us" class="btn btn-primary btn-large">Explore Campus Life</a>
                 <a href="#portal-widget" class="btn btn-secondary btn-large">Check Student Results →</a>
             </div>
         </div>
-
-    
     </section>
-
 
     <!-- ============================================================== -->
     <!-- SECTION 2: QUICK-ACCESS PORTAL WIDGET                         -->
@@ -111,12 +122,10 @@
                     </p>
                 </div>
 
-                <!-- Decorative background accent -->
                 <div class="widget-accent" style="background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1000&q=80');"></div>
             </div>
         </div>
     </section>
-
 
     <!-- ============================================================== -->
     <!-- SECTION 3: WHY CHOOSE US                                      -->
@@ -129,56 +138,42 @@
             </div>
 
             <div class="pillars-grid">
-                <!-- Pillar 1 -->
                 <div class="pillar-card" data-tilt>
                     <div class="pillar-image" style="background-image: url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80');"></div>
                     <div class="pillar-body">
                         <span class="pillar-number">01</span>
                         <h3>Beyond the Textbook.</h3>
-                        <p>
-                            Our classrooms integrate interactive tech, coding fundamentals,
-                            and real-time digital grading through our proprietary SRMP system.
-                        </p>
+                        <p>Our classrooms integrate interactive tech, coding fundamentals, and real-time digital grading through our proprietary SRMP system.</p>
                     </div>
                 </div>
 
-                <!-- Pillar 2 -->
                 <div class="pillar-card" data-tilt>
                     <div class="pillar-image" style="background-image: url('https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=800&q=80');"></div>
                     <div class="pillar-body">
                         <span class="pillar-number">02</span>
                         <h3>Character Over Curriculum.</h3>
-                        <p>
-                            We pair intensive academic rigor with competitive sports, arts,
-                            and leadership programs to build well-rounded humans.
-                        </p>
+                        <p>We pair intensive academic rigor with competitive sports, arts, and leadership programs to build well-rounded humans.</p>
                     </div>
                 </div>
 
-                <!-- Pillar 3 -->
                 <div class="pillar-card" data-tilt>
                     <div class="pillar-image" style="background-image: url('https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=800&q=80');"></div>
                     <div class="pillar-body">
                         <span class="pillar-number">03</span>
                         <h3>Spaces That Inspire.</h3>
-                        <p>
-                            From advanced STEM laboratories to Olympic-grade athletic fields,
-                            our campus is engineered for excellence.
-                        </p>
+                        <p>From advanced STEM laboratories to Olympic-grade athletic fields, our campus is engineered for excellence.</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Decorative SVG connecting line -->
             <svg class="pillar-connector" viewBox="0 0 800 40" preserveAspectRatio="none">
                 <path d="M 0 20 Q 200 0, 400 20 T 800 20" stroke="#3b82f6" stroke-width="2" fill="none" stroke-linecap="round" />
             </svg>
         </div>
     </section>
 
-
     <!-- ============================================================== -->
-    <!-- SECTION 4: CAMPUS LIFE (Horizontal Scroll Gallery)             -->
+    <!-- SECTION 4: CAMPUS LIFE                                        -->
     <!-- ============================================================== -->
     <section class="campus-life" id="campus-life">
         <div class="campus-sticky">
@@ -188,7 +183,6 @@
             </div>
 
             <div class="campus-track">
-                <!-- Slide 1 -->
                 <div class="campus-slide">
                     <div class="campus-slide-image" style="background-image: url('https://images.unsplash.com/photo-1567581935884-3349723552ca?auto=format&fit=crop&w=1200&q=80');"></div>
                     <div class="campus-slide-content">
@@ -198,7 +192,6 @@
                     </div>
                 </div>
 
-                <!-- Slide 2 -->
                 <div class="campus-slide">
                     <div class="campus-slide-image" style="background-image: url('https://images.unsplash.com/photo-1514306191717-452ec28c7814?auto=format&fit=crop&w=1200&q=80');"></div>
                     <div class="campus-slide-content">
@@ -208,7 +201,6 @@
                     </div>
                 </div>
 
-                <!-- Slide 3 -->
                 <div class="campus-slide">
                     <div class="campus-slide-image" style="background-image: url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=1200&q=80');"></div>
                     <div class="campus-slide-content">
@@ -218,7 +210,6 @@
                     </div>
                 </div>
 
-                <!-- Slide 4 -->
                 <div class="campus-slide">
                     <div class="campus-slide-image" style="background-image: url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1200&q=80');"></div>
                     <div class="campus-slide-content">
@@ -229,13 +220,11 @@
                 </div>
             </div>
 
-            <!-- Progress bar -->
             <div class="campus-progress">
                 <div class="campus-progress-bar"></div>
             </div>
         </div>
     </section>
-
 
     <!-- ============================================================== -->
     <!-- SECTION 5: BY THE NUMBERS                                     -->
@@ -270,7 +259,6 @@
         </div>
     </section>
 
-
     <!-- ============================================================== -->
     <!-- SECTION 6: ADMINISTRATION & STAFF PORTAL CALLOUT              -->
     <!-- ============================================================== -->
@@ -290,7 +278,6 @@
 
                 <div class="admin-visual">
                     <div class="admin-mockup" style="background-image: url('https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=1000&q=80');">
-                        <!-- Floating UI elements (decorative) -->
                         <div class="float-pill float-pill-1">Result Saved ✓</div>
                         <div class="float-pill float-pill-2">Rank Calculated</div>
                         <div class="float-pill float-pill-3">Report Generated</div>
@@ -299,7 +286,6 @@
             </div>
         </div>
     </section>
-
 
     <!-- ============================================================== -->
     <!-- SECTION 7: FOOTER & FINAL CTA                                 -->
@@ -348,25 +334,18 @@
         </div>
     </footer>
 
-
-       <!-- ============================================================== -->
+    <!-- ============================================================== -->
     <!-- SCRIPTS                                                       -->
     <!-- ============================================================== -->
-
-    <!-- Load GSAP and Lenis (without defer to ensure they are available) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
 
-    <!-- app.js (shared utilities) -->
     <script src="/js/app.js"></script>
 
     <script>
-        // ---- Check if GSAP is loaded ----
         if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
             gsap.registerPlugin(ScrollTrigger);
-
-            // ---- Lenis Smooth Scroll ----
             const lenis = new Lenis({
                 duration: 1.2,
                 easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -376,11 +355,7 @@
             gsap.ticker.add((time) => { lenis.raf(time * 1000); });
             gsap.ticker.lagSmoothing(0, 0);
 
-            // ---- All GSAP animations go here (copied from your earlier code) ----
             document.addEventListener('DOMContentLoaded', () => {
-                // --- Your existing GSAP animations ---
-                // (I've included a simplified version below, but you can keep your full code)
-                // For brevity, I'll only keep the essential ones, but you can copy your full animation block here.
                 console.log('GSAP animations enabled.');
             });
         } else {
@@ -406,9 +381,17 @@
                     window.location.href = url;
                 });
             }
+
+            // ---- Mobile Navbar Toggle ----
+            const hamburger = document.getElementById('navHamburger');
+            const navLinks = document.getElementById('navLinks');
+            if(hamburger && navLinks) {
+                hamburger.addEventListener('click', function() {
+                    navLinks.classList.toggle('open');
+                    document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
+                });
+            }
         });
     </script>
-</body>
-</html>
 </body>
 </html>

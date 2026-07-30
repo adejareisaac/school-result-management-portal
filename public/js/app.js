@@ -105,3 +105,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+// Mobile Sidebar Toggle (Dashboard)
+document.addEventListener('DOMContentLoaded', () => {
+    const toggleBtn = document.getElementById('sidebarToggle');
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', () => {
+            document.body.classList.toggle('sidebar-open');
+            toggleBtn.innerHTML = document.body.classList.contains('sidebar-open') ? '✕' : '☰';
+        });
+    }
+});

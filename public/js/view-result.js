@@ -33,16 +33,31 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('printResultBtn')?.addEventListener('click', () => {
         window.print();
     });
+
+    document.getElementById('downloadPdfBtn')?.addEventListener('click', () => {
+    const el = document.querySelector('#pdfContainer .a4-paper');
+    if (!el) return;
+    const opt = {
+        margin: [10, 10],
+        filename: 'Student_Report_Card.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, letterRendering: true },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+    html2pdf().set(opt).from(el).save();
+});
 });
 
 async function fetchResult(studentId, session, term) {
     const errorDiv = document.getElementById('lookupError');
     const displayDiv = document.getElementById('resultDisplay');
     const container = document.getElementById('reportCardContainer');
+    const pdfContainer = document.getElementById('pdfContainer');
 
     try {
         errorDiv.style.display = 'none';
         displayDiv.style.display = 'none';
+        pdfContainer.style.display = 'none';
 
         const url = `/api/student-result?studentId=${encodeURIComponent(studentId)}&session=${encodeURIComponent(session)}&term=${encodeURIComponent(term)}`;
         const data = await apiFetch(url);
@@ -52,10 +67,27 @@ async function fetchResult(studentId, session, term) {
         }
 
         const report = data.data;
-        container.innerHTML = renderFullReportCard(report, session, term);
+        const htmlContent = renderFullReportCard(report, session, term);
 
-        displayDiv.style.display = 'block';
-        displayDiv.scrollIntoView({ behavior: 'smooth' });
+        // Wrap result in A4 Paper view
+        pdfContainer.innerHTML = `<div class="a4-paper">${htmlContent}</div>`;
+        
+        // 1. Show on screen immediately (so it looks like a PDF)
+        pdfContainer.style.display = 'block';
+        pdfContainer.scrollIntoView({ behavior: 'smooth' });
+
+        // 2. Generate and auto-download PDF via html2pdf
+        const el = pdfContainer.querySelector('.a4-paper');
+        const opt = {
+            margin:        [10, 10],
+            filename:      `Result_${studentId}_${session}_${term}.pdf`,
+            image:         { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2, letterRendering: true },
+            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+        // Uncomment the line below if you want it to automatically download:
+        // html2pdf().set(opt).from(el).save();
+        
     } catch (error) {
         errorDiv.style.display = 'block';
         errorDiv.textContent = error.message || 'Failed to load result. Please check the details and try again.';

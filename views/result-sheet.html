@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,7 +9,39 @@
     <link rel="stylesheet" href="/css/global.css" />
     <link rel="stylesheet" href="/css/print.css" media="print" />
     <link rel="stylesheet" href="/css/view-result.css" />
+    <style>
+        /* A4 Paper styled container for the result */
+        .result-pdf-container {
+            display: none;
+            /* Hidden initially */
+            width: 100%;
+            padding: 0 20px 40px;
+        }
+
+        .result-pdf-container.show {
+            display: block;
+        }
+
+        .a4-paper {
+            background: white;
+            width: 100%;
+            max-width: 210mm;
+            /* A4 width */
+            margin: 0 auto;
+            padding: 15mm 15mm 15mm 15mm;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            border-radius: 8px;
+            font-size: 11pt;
+        }
+
+        @media (max-width: 768px) {
+            .a4-paper {
+                padding: 6mm;
+            }
+        }
+    </style>
 </head>
+
 <body>
     <div class="result-sheet-wrapper" id="resultSheet">
 
@@ -65,7 +98,9 @@
                 </thead>
                 <tbody id="resultSheetBody">
                     <!-- JavaScript will populate rows -->
-                    <tr><td colspan="8" style="text-align:center;">Loading results…</td></tr>
+                    <tr>
+                        <td colspan="8" style="text-align:center;">Loading results…</td>
+                    </tr>
                 </tbody>
             </table>
         </section>
@@ -129,16 +164,86 @@
                 </thead>
                 <tbody id="affectiveBody">
                     <!-- JavaScript can populate with checkmarks or ratings -->
-                    <tr><td>Attentiveness</td><td></td><td></td><td></td><td></td><td></td></tr>
-                    <tr><td>Honesty</td><td></td><td></td><td></td><td></td><td></td></tr>
-                    <tr><td>Neatness</td><td></td><td></td><td></td><td></td><td></td></tr>
-                    <tr><td>Politeness</td><td></td><td></td><td></td><td></td><td></td></tr>
-                    <tr><td>Punctuality / Assembly</td><td></td><td></td><td></td><td></td><td></td></tr>
-                    <tr><td>Self Control / Calmness</td><td></td><td></td><td></td><td></td><td></td></tr>
-                    <tr><td>Obedience</td><td></td><td></td><td></td><td></td><td></td></tr>
-                    <tr><td>Reliability</td><td></td><td></td><td></td><td></td><td></td></tr>
-                    <tr><td>Sense of Responsibility</td><td></td><td></td><td></td><td></td><td></td></tr>
-                    <tr><td>Relationship With Others</td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr>
+                        <td>Attentiveness</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Honesty</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Neatness</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Politeness</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Punctuality / Assembly</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Self Control / Calmness</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Obedience</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Reliability</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Sense of Responsibility</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Relationship With Others</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
                 </tbody>
             </table>
             <div class="rating-indices">
@@ -165,12 +270,54 @@
                     </tr>
                 </thead>
                 <tbody id="psychomotorBody">
-                    <tr><td>Handling of Tools</td><td></td><td></td><td></td><td></td><td></td></tr>
-                    <tr><td>Drawing / Painting</td><td></td><td></td><td></td><td></td><td></td></tr>
-                    <tr><td>Handwriting</td><td></td><td></td><td></td><td></td><td></td></tr>
-                    <tr><td>Public Speaking</td><td></td><td></td><td></td><td></td><td></td></tr>
-                    <tr><td>Speech Fluency</td><td></td><td></td><td></td><td></td><td></td></tr>
-                    <tr><td>Sports &amp; Games</td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr>
+                        <td>Handling of Tools</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Drawing / Painting</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Handwriting</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Public Speaking</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Speech Fluency</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Sports &amp; Games</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
                 </tbody>
             </table>
         </section>
@@ -228,7 +375,7 @@
 
     <!-- Simple script to set the generation date -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const now = new Date();
             document.getElementById('printDate').textContent = now.toLocaleDateString('en-GB', {
                 day: '2-digit', month: 'short', year: 'numeric'
@@ -239,4 +386,5 @@
     <!-- Main JavaScript to populate dynamic data -->
     <script src="/js/view-result.js" defer></script>
 </body>
+
 </html>
