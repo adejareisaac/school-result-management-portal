@@ -399,6 +399,7 @@
     }
     
     .search-bar .btn {
+        width: 100%; /* UPDATED: Makes the search button full width on mobile */
         justify-content: center;
     }
 }
@@ -418,9 +419,11 @@
 .table-container {
     background: #ffffff;
     border-radius: 20px;
-    overflow-x: auto; /* ADDED: scrolls horizontally on mobile */
+    overflow-x: auto;
     border: 1px solid #f1f5f9;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+    width: 100%; /* UPDATED: Ensures it stays within parent container */
+    display: block; /* UPDATED: Prevents flexbox overflow bugs */
 }
 
 .data-table {
@@ -734,12 +737,24 @@
     .nav-item { justify-content: center; padding: 10px; }
     .nav-icon-wrap { width: 40px; height: 40px; }
     .sidebar-footer { display: none; }
-    .main-content { padding: 20px 16px; }
+    
+    /* UPDATED FIXES FOR MOBILE LAYOUT */
+    .main-content {
+        padding: 16px;
+        min-width: 0; /* Prevents flex child from pushing the whole screen horizontally */
+    }
     
     .page-header {
         flex-direction: column;
         gap: 12px;
         align-items: stretch;
+    }
+    
+    .page-header .btn {
+        width: 100%; /* Makes the Add Student button look good on mobile */
+        justify-content: center;
+        padding: 12px;
+        margin-top: 4px;
     }
     
     .search-bar {
@@ -752,7 +767,7 @@
         justify-content: center;
     }
     
-    .data-table { min-width: 650px; } /* Forces table to scroll if too wide */
+    .data-table { min-width: 650px; }
     
     .data-table th,
     .data-table td {

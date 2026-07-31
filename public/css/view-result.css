@@ -1,7 +1,6 @@
 /* ================================================================
    VIEW RESULT – Public Page & A4 Print Optimization
    ================================================================ */
-
 /* ---- Public Header (screen only) ---- */
 .public-header {
     display: flex;
@@ -11,13 +10,11 @@
     background: #ffffff;
     border-bottom: 1px solid #e8ecf1;
 }
-
 .public-header .logo {
     font-weight: 800;
     font-size: 1.2rem;
     color: #0b1e33;
 }
-
 .public-header .btn-outline {
     background: transparent;
     color: #475569;
@@ -33,7 +30,6 @@
     background: #f1f5f9;
     border-color: #94a3b8;
 }
-
 /* ---- Main Container (screen only) ---- */
 .view-result-main {
     max-width: 900px;
@@ -41,7 +37,6 @@
     padding: 0 24px;
     min-height: 60vh;
 }
-
 .view-result-main .page-title {
     font-size: 2rem;
     font-weight: 800;
@@ -49,36 +44,46 @@
     color: #0b1e33;
     margin-bottom: 8px;
 }
-
 .view-result-main .subtitle {
     text-align: center;
     color: #64748b;
     margin-bottom: 32px;
 }
-
-/* A4 Paper styled container for the result */
+/* ---- A4 Paper Container (Screen only) ---- */
 .result-pdf-container {
-    display: none; /* Hidden initially */
+    display: none;
     width: 100%;
     padding: 0 20px 40px;
 }
 .result-pdf-container.show {
     display: block;
 }
+/*
+   The a4-paper box is a TRUE A4 sheet at 96dpi (210mm = 793.7px).
+   Everything inside .report-card.read-only is sized in pt/mm so that
+   it fills exactly one A4 page — the same box is used for the on-screen
+   preview, window.print(), AND the html2pdf export, so all three
+   outputs match the reference layout 1:1. Do NOT give this element a
+   min-height or let its children grow unbounded — that's what causes
+   content to spill onto a phantom second page.
+   Padding trimmed to the minimum that still keeps the border off the
+   physical edge of the sheet — no wasted margin around the report.
+*/
 .a4-paper {
     background: white;
     width: 100%;
-    max-width: 210mm; /* A4 width */
+    max-width: 210mm;
+    min-height: 297mm;
     margin: 0 auto;
-    padding: 15mm 15mm 15mm 15mm;
+    padding: 6mm 7mm;
     box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-    border-radius: 8px;
-    font-size: 11pt;
+    border-radius: 4px;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 @media (max-width: 768px) {
-    .a4-paper { padding: 6mm; }
+    .a4-paper { padding: 4mm; min-height: 0; }
 }
-
 /* ---- Lookup Form (screen only) ---- */
 .lookup-form {
     background: #ffffff;
@@ -92,556 +97,360 @@
     align-items: flex-end;
     margin-bottom: 32px;
 }
-
-.lookup-form .form-group {
-    flex: 1;
-    min-width: 160px;
-}
-
+.lookup-form .form-group { flex: 1; min-width: 160px; }
 .lookup-form label {
-    display: block;
-    font-weight: 600;
-    font-size: 0.85rem;
-    color: #334155;
-    margin-bottom: 4px;
+    display: block; font-weight: 600; font-size: 0.85rem;
+    color: #334155; margin-bottom: 4px;
 }
-
-.lookup-form input,
-.lookup-form select {
-    width: 100%;
-    padding: 10px 14px;
-    border-radius: 12px;
-    border: 1px solid #e2e8f0;
-    background: #f8fafc;
-    font-size: 0.95rem;
+.lookup-form input, .lookup-form select {
+    width: 100%; padding: 10px 14px; border-radius: 12px;
+    border: 1px solid #e2e8f0; background: #f8fafc; font-size: 0.95rem;
 }
-
-.lookup-form input:focus,
-.lookup-form select:focus {
-    outline: none;
-    border-color: #2563eb;
+.lookup-form input:focus, .lookup-form select:focus {
+    outline: none; border-color: #2563eb;
     box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
 }
-
-.lookup-form .btn {
-    flex-shrink: 0;
-    align-self: center;
-    padding: 12px 32px;
-}
-
+.lookup-form .btn { flex-shrink: 0; align-self: center; padding: 12px 32px; }
 /* ---- Error Message (screen only) ---- */
 .error-message {
-    background: #fef2f2;
-    color: #b91c1c;
-    border-radius: 12px;
-    padding: 16px 20px;
-    border-left: 4px solid #b91c1c;
-    margin-top: 16px;
+    background: #fef2f2; color: #b91c1c; border-radius: 12px;
+    padding: 16px 20px; border-left: 4px solid #b91c1c;
+    margin-top: 16px; display: none;
 }
-
 /* ---- Print Actions (screen only) ---- */
 .print-actions {
-    text-align: center;
-    margin-top: 20px;
+    text-align: center; margin-top: 20px; display: flex;
+    justify-content: center; gap: 12px; flex-wrap: wrap;
 }
-
-.print-actions .btn {
-    padding: 10px 28px;
-}
-
+.print-actions .btn { padding: 10px 28px; }
 /* ================================================================
-   READ-ONLY REPORT CARD (Screen & Print)
+   READ-ONLY REPORT CARD — Bailey's Bowen College style
+   These sizes are the COMPACT/print sizes by default (not just inside
+   @media print). That's the fix: html2canvas (used for the PDF
+   download button) does NOT switch to print media, so if the compact
+   sizing only lived inside @media print, the PDF export rendered at
+   the larger screen font sizes, overflowed one A4 page, and html2pdf
+   silently split it across a mostly-blank second page. Making this
+   the single source of truth for sizing means preview, print, and
+   PDF export are always identical and always fit one page.
    ================================================================ */
-
 .report-card.read-only {
     background: #ffffff;
-    border-radius: 24px;
-    padding: 40px 48px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
-    border: 1px solid #f1f5f9;
-    margin-top: 32px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #000;
+    border: 1.5px solid #14213d;
+    padding: 6px 10px 8px;
+    font-size: 7.6pt;
+    line-height: 1.18;
+    width: 100%;
+    box-sizing: border-box;
 }
-
+/* ---- School Header ---- */
 .report-card.read-only .school-header {
+    position: relative;
     text-align: center;
-    border-bottom: 2px solid #2563eb;
-    padding-bottom: 16px;
-    margin-bottom: 20px;
+    border-bottom: 3px double #14213d;
+    padding-bottom: 4px;
+    margin-bottom: 4px;
+    min-height: 52px;
 }
-
+.report-card.read-only .school-logo {
+    position: absolute;
+    left: 0;
+    top: 2px;
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+}
 .report-card.read-only .school-header h1 {
-    font-size: 1.8rem;
-    font-weight: 900;
-    margin: 0;
+    font-size: 14.5pt;
+    font-weight: 800;
+    margin: 2px 0 2px;
+    color: #14213d;
+    letter-spacing: 0.4px;
+    font-family: Georgia, 'Times New Roman', serif;
 }
-
-.report-card.read-only .school-header .report-title {
-    font-size: 1.2rem;
+.report-card.read-only .school-header .address,
+.report-card.read-only .school-header .contact {
+    font-size: 6.8pt;
+    margin: 1px 0;
+    color: #1a1a1a;
+}
+.report-card.read-only .report-title-bar {
+    text-align: center;
     font-weight: 700;
-    margin-top: 6px;
+    font-size: 9.3pt;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    margin: 3px 0 6px;
+    text-transform: none;
 }
-
+/* ---- Student Profile ---- */
 .report-card.read-only .student-profile {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4px 20px;
-    background: #f8fafc;
-    padding: 12px 16px;
-    border-radius: 12px;
-    margin-bottom: 16px;
-    font-size: 0.9rem;
+    position: relative;
+    border: 1px solid #14213d;
+    padding: 4px 82px 4px 7px;
+    margin-bottom: 6px;
+    break-inside: avoid;
 }
-
-.report-card.read-only .student-profile .profile-field {
+.report-card.read-only .profile-photo {
+    position: absolute;
+    top: 4px;
+    right: 5px;
+    width: 60px;
+    height: 70px;
+    border: 1px solid #14213d;
+    background: #f1f1f1;
     display: flex;
     align-items: center;
+    justify-content: center;
+    font-size: 6.2pt;
+    color: #94a3b8;
+    overflow: hidden;
+}
+.report-card.read-only .profile-photo img {
+    width: 100%; height: 100%; object-fit: cover;
+}
+.report-card.read-only .profile-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px 16px;
+    padding: 1px 0;
+    font-size: 7.8pt;
+}
+.report-card.read-only .profile-field {
+    display: flex;
+    align-items: baseline;
     gap: 4px;
+    white-space: nowrap;
 }
-
-.report-card.read-only .student-profile .profile-field label {
-    font-weight: 600;
-    color: #475569;
-    min-width: 80px;
-}
-
-.report-card.read-only .student-profile .profile-field span {
-    font-weight: 500;
-    color: #0b1e33;
-}
-
-.report-card.read-only .section-title {
+.report-card.read-only .profile-field.wide { flex: 1 1 240px; }
+.report-card.read-only .profile-field label {
     font-weight: 700;
-    font-size: 1.1rem;
-    margin: 16px 0 8px;
-    color: #0b1e33;
-    border-bottom: 1px solid #e2e8f0;
-    padding-bottom: 4px;
+    text-transform: uppercase;
+    font-size: 7.5pt;
 }
-
+.report-card.read-only .profile-field .fill {
+    font-weight: 600;
+    border-bottom: 1px dotted #64748b;
+    padding: 0 6px 0 2px;
+    flex: 1;
+    white-space: normal;
+}
+/* ---- Body grid: cognitive (left) + affective/psychomotor (right) ----
+   Columns are top-aligned and each one's height is just its own
+   content — no stretching, no auto-margin pushing the summary boxes
+   down to chase a taller sibling column. That auto-margin trick was
+   the cause of the big empty gap above Performance Summary/Grade
+   Scale: the right column (rating tables) is naturally taller than
+   the subject list, so the left column got stretched to match and
+   its bottom-row got shoved down to the bottom of that extra height.
+   Sitting flush under real content is what actually removes the gap. */
+.report-card.read-only .report-body-grid {
+    display: grid;
+    grid-template-columns: 1.65fr 1fr;
+    gap: 6px;
+    align-items: start;
+}
+.report-card.read-only .col-left,
+.report-card.read-only .col-right {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+/* ---- Domain blocks with rotated side label ---- */
+.report-card.read-only .domain-block {
+    display: flex;
+    border: 1px solid #14213d;
+    break-inside: avoid;
+}
+.report-card.read-only .domain-label {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    background: #14213d;
+    color: #fff;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    font-weight: 700;
+    font-size: 7pt;
+    letter-spacing: 0.8px;
+    text-align: center;
+    padding: 4px 2px;
+    white-space: nowrap;
+}
+.report-card.read-only .domain-block table { flex: 1; }
+/* ---- Cognitive result table ---- */
 .report-card.read-only .result-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 0.85rem;
-    margin-bottom: 12px;
+    font-size: 7.6pt;
 }
-
-.report-card.read-only .result-table th {
-    background: #f1f5f9;
-    padding: 8px 10px;
-    text-align: left;
-    font-weight: 600;
-    border-bottom: 2px solid #e2e8f0;
-}
-
+.report-card.read-only .result-table th,
 .report-card.read-only .result-table td {
-    padding: 6px 10px;
-    border-bottom: 1px solid #f1f5f9;
+    border: 1px solid #94a3b8;
+    padding: 4.5px 3px;
+    text-align: center;
 }
-
-.report-card.read-only .result-table .total-grade {
+.report-card.read-only .result-table th {
+    background: #eef1f6;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
     font-weight: 700;
 }
-
-.report-card.read-only .summary-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px 32px;
-    background: #f8fafc;
-    padding: 10px 16px;
-    border-radius: 12px;
-    margin: 8px 0 16px;
+.report-card.read-only .result-table th.rotate {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    padding: 2px 2px;
+    font-size: 6.4pt;
 }
-
-.report-card.read-only .summary-grid .summary-item {
-    display: flex;
-    gap: 6px;
+.report-card.read-only .result-table th.subj-col,
+.report-card.read-only .result-table td.subj-name {
+    text-align: left;
 }
-
-.report-card.read-only .summary-grid .summary-item .label {
-    font-weight: 600;
-    color: #475569;
+.report-card.read-only .result-table td.total-grade { font-weight: 700; }
+/* ---- Mini info boxes (performance summary / grade scale / attendance / grade analysis) ----
+   Font sizes dropped a notch further than the base report size so
+   these dense boxes never force a line to wrap and blow their box
+   past the width available above them. */
+.report-card.read-only .box {
+    border: 1px solid #14213d;
+    padding: 3px 6px;
+    font-size: 6.6pt;
+    break-inside: avoid;
 }
-
-.report-card.read-only .summary-grid .summary-item .value {
+.report-card.read-only .box-title {
     font-weight: 700;
+    font-size: 6.9pt;
+    text-align: center;
+    background: #14213d;
+    color: #fff;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    margin: -3px -6px 2px;
+    padding: 2px 3px;
 }
-
-.report-card.read-only .grade-scale {
+.report-card.read-only .bottom-row {
     display: flex;
-    flex-wrap: wrap;
-    gap: 6px 16px;
-    font-size: 0.8rem;
-    margin: 8px 0 12px;
+    gap: 5px;
 }
-
-.report-card.read-only .grade-scale span {
-    background: #f1f5f9;
-    padding: 2px 12px;
-    border-radius: 20px;
+.report-card.read-only .bottom-row .box { flex: 1; min-width: 0; }
+.report-card.read-only .mini-table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    font-size: 6.6pt;
 }
-
-.report-card.read-only .attendance-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px 24px;
-    background: #f8fafc;
-    padding: 8px 16px;
-    border-radius: 12px;
-    margin: 8px 0 12px;
+.report-card.read-only .mini-table td,
+.report-card.read-only .mini-table th {
+    border: 1px solid #cbd5e1;
+    padding: 1px 3px;
+    overflow-wrap: break-word;
 }
-
-.report-card.read-only .attendance-grid label {
-    font-weight: 600;
-    color: #475569;
+.report-card.read-only .mini-table td:first-child { font-weight: 600; }
+.report-card.read-only .grade-analysis-table th,
+.report-card.read-only .grade-analysis-table td {
+    text-align: center;
 }
-
-.report-card.read-only .attendance-grid span {
-    font-weight: 500;
+.report-card.read-only .total-subjects {
+    margin-top: 2px;
+    font-size: 6.6pt;
+    text-align: right;
 }
-
+.report-card.read-only .grade-scale-box p {
+    margin: 0;
+    font-size: 6pt;
+    line-height: 1.3;
+}
+/* ---- Rating tables (Affective / Psychomotor) ---- */
 .report-card.read-only .rating-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 0.85rem;
-    margin: 8px 0 12px;
+    font-size: 6.5pt;
 }
-
-.report-card.read-only .rating-table th {
-    background: #f1f5f9;
-    padding: 6px 8px;
-    text-align: center;
-    font-weight: 600;
-}
-
+.report-card.read-only .rating-table th,
 .report-card.read-only .rating-table td {
-    padding: 4px 8px;
+    border: 1px solid #94a3b8;
+    padding: 1px 3px;
     text-align: center;
-    border-bottom: 1px solid #f1f5f9;
 }
-
-.report-card.read-only .rating-table td:first-child {
-    text-align: left;
-    font-weight: 500;
+.report-card.read-only .rating-table th {
+    background: #eef1f6;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    font-weight: 700;
 }
-
-.report-card.read-only .rating-btn {
-    display: inline-block;
-    width: 28px;
-    height: 28px;
-    line-height: 28px;
-    border-radius: 50%;
-    background: #f1f5f9;
+.report-card.read-only .rating-table td.trait-name { text-align: left; font-weight: 500; }
+.report-card.read-only .rating-table td { color: #14213d; font-weight: 700; }
+/* ---- Rating indices legend box ---- */
+.report-card.read-only .rating-indices-box ul {
+    margin: 0;
+    padding-left: 11px;
+    font-size: 6.2pt;
+    line-height: 1.35;
+}
+.report-card.read-only .footer-credit {
+    text-align: center;
+    font-size: 5.8pt;
     color: #64748b;
-    font-weight: 600;
-    border: 2px solid transparent;
+    margin-top: 2px;
 }
-
-.report-card.read-only .rating-btn.active {
-    background: #2563eb;
-    color: #fff;
-    border-color: #1d4ed8;
-}
-
+/* ---- Remarks section ----
+   Trimmed to sit flush under the grid above it: smaller font, tighter
+   padding, and the signature line no longer wraps onto its own extra
+   line at normal widths. */
 .report-card.read-only .remarks-section {
-    margin: 12px 0 8px;
+    margin-top: 5px;
+    border: 1px solid #14213d;
+    padding: 4px 8px;
+    break-inside: avoid;
 }
-
-.report-card.read-only .remarks-section .remark-text {
-    background: #f8fafc;
-    padding: 8px 12px;
-    border-radius: 8px;
-    margin: 4px 0;
+.report-card.read-only .remark-row { margin-bottom: 1px; font-size: 7.3pt; }
+.report-card.read-only .remark-row label { font-weight: 700; }
+.report-card.read-only .remark-text {
     font-style: italic;
+    padding: 1px 0 3px;
+    font-size: 7.3pt;
+    overflow-wrap: break-word;
 }
-
-.report-card.read-only .remarks-section .signature-line {
+.report-card.read-only .signature-line {
     display: flex;
+    justify-content: space-between;
     flex-wrap: wrap;
-    gap: 16px 32px;
-    margin-top: 6px;
-    font-size: 0.9rem;
+    gap: 4px 16px;
+    font-size: 7pt;
+    margin-bottom: 4px;
 }
-
-.report-card.read-only .remarks-section .signature-line span {
-    display: inline-block;
-    padding: 2px 0;
+.report-card.read-only .signature-line.final-row {
+    border-top: 1px solid #cbd5e1;
+    padding-top: 3px;
+    margin-bottom: 0;
 }
-
 /* ================================================================
-   RESPONSIVE (Screen)
+   RESPONSIVE (Screen only — the report card itself keeps its fixed
+   print sizing at all viewport widths; only the page chrome reflows)
    ================================================================ */
-
 @media (max-width: 768px) {
-    .public-header {
-        padding: 12px 16px;
-    }
-    .public-header .logo {
-        font-size: 1rem;
-    }
-    .view-result-main {
-        padding: 0 16px;
-        margin: 20px auto;
-    }
-    .lookup-form {
-        flex-direction: column;
-        align-items: stretch;
-        padding: 24px;
-    }
-    .lookup-form .form-group {
-        min-width: 100%;
-    }
-    .report-card.read-only {
-        padding: 20px 16px;
-    }
-    .report-card.read-only .student-profile {
-        grid-template-columns: 1fr;
-    }
-    .report-card.read-only .result-table {
-        font-size: 0.7rem;
-    }
+    .public-header { padding: 12px 16px; }
+    .public-header .logo { font-size: 1rem; }
+    .view-result-main { padding: 0 16px; margin: 20px auto; }
+    .lookup-form { flex-direction: column; align-items: stretch; padding: 24px; }
+    .lookup-form .form-group { min-width: 100%; }
 }
-
 @media (max-width: 480px) {
-    .view-result-main .page-title {
-        font-size: 1.5rem;
-    }
-    .report-card.read-only {
-        padding: 16px 12px;
-    }
+    .view-result-main .page-title { font-size: 1.5rem; }
+    .print-actions { flex-direction: column; align-items: stretch; }
+    .print-actions .btn { width: 100%; justify-content: center; }
 }
-
 /* ================================================================
-   A4 PRINT STYLES – Optimized for One Page
+   PRINT — chrome hiding only. Sizing is already fitted at baseline.
    ================================================================ */
-
 @media print {
-    /* Hide all screen-only elements */
-    .public-header,
-    .lookup-form,
-    .print-actions,
-    .error-message,
-    .view-result-main .page-title,
-    .view-result-main .subtitle,
-    .public-footer {
-        display: none !important;
-    }
-
-    /* Reset margins and padding */
-    body {
-        margin: 0 !important;
-        padding: 0 !important;
-        background: white !important;
-    }
-
-    .view-result-main {
-        max-width: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-
-    .container {
-        max-width: 100% !important;
-        padding: 0 !important;
-    }
-
-    /* Report card container */
-    .report-card.read-only {
-        border: none !important;
-        box-shadow: none !important;
-        border-radius: 0 !important;
-        padding: 12px 16px !important;
-        margin: 0 !important;
-        background: white !important;
-        font-size: 9pt !important;
-    }
-
-    /* School header – smaller */
-    .report-card.read-only .school-header {
-        border-bottom: 1px solid #000 !important;
-        padding-bottom: 8px !important;
-        margin-bottom: 10px !important;
-    }
-
-    .report-card.read-only .school-header h1 {
-        font-size: 16pt !important;
-        margin: 0 !important;
-    }
-
-    .report-card.read-only .school-header p {
-        font-size: 8pt !important;
-        margin: 2px 0 !important;
-    }
-
-    .report-card.read-only .school-header .report-title {
-        font-size: 11pt !important;
-        margin-top: 2px !important;
-    }
-
-    .report-card.read-only .school-header div[style] {
-        font-size: 9pt !important;
-        margin-top: 2px !important;
-    }
-
-    /* Student profile – compact */
-    .report-card.read-only .student-profile {
-        display: grid !important;
-        grid-template-columns: 1fr 1fr !important;
-        gap: 2px 12px !important;
-        padding: 6px 10px !important;
-        margin-bottom: 8px !important;
-        background: #f4f4f4 !important;
-        font-size: 8pt !important;
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-    }
-
-    .report-card.read-only .student-profile .profile-field label {
-        min-width: 60px !important;
-        font-size: 8pt !important;
-    }
-
-    .report-card.read-only .student-profile .profile-field span {
-        font-size: 8pt !important;
-    }
-
-    /* Section titles */
-    .report-card.read-only .section-title {
-        font-size: 10pt !important;
-        margin: 10px 0 4px !important;
-        padding-bottom: 2px !important;
-        border-bottom: 1px solid #ccc !important;
-    }
-
-    /* Cognitive table – compact */
-    .report-card.read-only .result-table {
-        font-size: 7.5pt !important;
-        margin-bottom: 6px !important;
-    }
-
-    .report-card.read-only .result-table th {
-        padding: 3px 4px !important;
-        font-size: 7.5pt !important;
-        background: #e9e9e9 !important;
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-    }
-
-    .report-card.read-only .result-table td {
-        padding: 2px 4px !important;
-        font-size: 7.5pt !important;
-    }
-
-    /* Performance summary */
-    .report-card.read-only .summary-grid {
-        padding: 4px 10px !important;
-        gap: 8px 16px !important;
-        margin: 4px 0 8px !important;
-        background: #f4f4f4 !important;
-        font-size: 8pt !important;
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-    }
-
-    /* Grade scale – one line */
-    .report-card.read-only .grade-scale {
-        font-size: 7pt !important;
-        gap: 4px 8px !important;
-        margin: 4px 0 6px !important;
-    }
-
-    .report-card.read-only .grade-scale span {
-        padding: 1px 6px !important;
-        background: #e9e9e9 !important;
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-    }
-
-    /* Attendance */
-    .report-card.read-only .attendance-grid {
-        padding: 4px 10px !important;
-        gap: 8px 16px !important;
-        margin: 4px 0 6px !important;
-        background: #f4f4f4 !important;
-        font-size: 8pt !important;
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-    }
-
-    /* Rating tables */
-    .report-card.read-only .rating-table {
-        font-size: 7.5pt !important;
-        margin: 4px 0 6px !important;
-    }
-
-    .report-card.read-only .rating-table th {
-        padding: 2px 4px !important;
-        font-size: 7.5pt !important;
-        background: #e9e9e9 !important;
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-    }
-
-    .report-card.read-only .rating-table td {
-        padding: 2px 4px !important;
-        font-size: 7.5pt !important;
-    }
-
-    .report-card.read-only .rating-btn {
-        width: 16px !important;
-        height: 16px !important;
-        line-height: 16px !important;
-        font-size: 6.5pt !important;
-        border: 1px solid #ccc !important;
-    }
-
-    .report-card.read-only .rating-btn.active {
-        background: #2563eb !important;
-        color: #fff !important;
-        border-color: #1d4ed8 !important;
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-    }
-
-    /* Remarks */
-    .report-card.read-only .remarks-section {
-        margin: 6px 0 4px !important;
-    }
-
-    .report-card.read-only .remarks-section .remark-text {
-        padding: 4px 8px !important;
-        font-size: 8pt !important;
-        background: #f4f4f4 !important;
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-    }
-
-    .report-card.read-only .remarks-section .signature-line {
-        font-size: 8pt !important;
-        gap: 12px 20px !important;
-    }
-
-    .report-card.read-only .remarks-section .signature-line span {
-        padding: 0 !important;
-    }
-
-    .report-card.read-only > div:last-child {
-        font-size: 8pt !important;
-        margin-top: 6px !important;
-    }
-
-    /* Avoid page breaks inside major blocks */
-    .report-card.read-only .student-profile,
-    .report-card.read-only .result-table,
-    .report-card.read-only .summary-grid,
-    .report-card.read-only .grade-scale,
-    .report-card.read-only .attendance-grid,
-    .report-card.read-only .rating-table,
-    .report-card.read-only .remarks-section {
-        page-break-inside: avoid !important;
-    }
-
-    /* Ensure the entire report card fits on one page */
-    .report-card.read-only {
-        page-break-after: avoid !important;
-    }
+    .public-header, .lookup-form, .print-actions, .error-message,
+    .view-result-main .page-title, .view-result-main .subtitle,
+    .public-footer { display: none !important; }
+    body { margin: 0 !important; padding: 0 !important; background: white !important; }
+    .view-result-main { max-width: 100% !important; margin: 0 !important; padding: 0 !important; }
+    .container { max-width: 100% !important; padding: 0 !important; }
+    .a4-paper { box-shadow: none !important; }
+    .report-card.read-only { page-break-after: avoid !important; }
 }
