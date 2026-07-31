@@ -1,14 +1,12 @@
 /**
  * results.js – Student List + Report Card Modal
  */
-
 let students = [];
 let currentReportData = null;
 let currentStudentId = null;
 
 document.addEventListener('DOMContentLoaded', async () => {
     console.log('🚀 Results page loaded');
-
     // Elements
     const preloader = document.getElementById('preloader');
     const progressBar = document.getElementById('progressBar');
@@ -20,6 +18,40 @@ document.addEventListener('DOMContentLoaded', async () => {
     const termSelect = document.getElementById('reportTerm');
     const modal = document.getElementById('reportModal');
 
+    // ---- Mobile sidebar drawer ----
+    const sidebar = document.getElementById('sidebar');
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+    const openSidebar = () => {
+        sidebar?.classList.add('open');
+        sidebarOverlay?.classList.add('show');
+        sidebarToggle?.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+    };
+    const closeSidebar = () => {
+        sidebar?.classList.remove('open');
+        sidebarOverlay?.classList.remove('show');
+        sidebarToggle?.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+    };
+    sidebarToggle?.addEventListener('click', () => {
+        if (sidebar?.classList.contains('open')) {
+            closeSidebar();
+        } else {
+            openSidebar();
+        }
+    });
+    sidebarOverlay?.addEventListener('click', closeSidebar);
+    // Close the drawer automatically if the viewport is resized back to desktop
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 900) closeSidebar();
+    });
+    // Close the drawer when a nav link is tapped (mobile)
+    sidebar?.querySelectorAll('.nav-item').forEach(link => {
+        link.addEventListener('click', () => closeSidebar());
+    });
+
     // Helper to update progress
     let progress = 0;
     const updateProgress = (step) => {
@@ -28,7 +60,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             progressBar.style.width = Math.min(progress, 100) + '%';
         }
     };
-
     try {
         await loadStudents();
         updateProgress(100);
@@ -42,7 +73,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
         setTimeout(() => preloader.classList.add('hidden'), 3000);
     }
-
     // ---- Search ----
     searchBtn?.addEventListener('click', () => {
         const keyword = searchInput.value.trim();
@@ -58,7 +88,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         renderStudentList(students);
     });
     refreshBtn?.addEventListener('click', loadStudents);
-
     // ---- Close modal ----
     modal?.querySelector('.modal-close')?.addEventListener('click', () => closeModal('reportModal'));
     modal?.addEventListener('click', (e) => { if (e.target === modal) closeModal('reportModal'); });
@@ -82,7 +111,6 @@ function renderStudentList(allStudents, keyword = '') {
     const tbody = document.getElementById('studentsTableBody');
     const emptyState = document.getElementById('emptyState');
     const table = document.getElementById('studentsTable');
-
     let filtered = allStudents;
     if (keyword.trim()) {
         const k = keyword.trim().toLowerCase();
@@ -91,7 +119,6 @@ function renderStudentList(allStudents, keyword = '') {
             s.student_id.toLowerCase().includes(k)
         );
     }
-
     if (filtered.length === 0) {
         tbody.innerHTML = '';
         emptyState.style.display = 'block';
@@ -100,7 +127,6 @@ function renderStudentList(allStudents, keyword = '') {
     }
     emptyState.style.display = 'none';
     table.style.display = '';
-
     tbody.innerHTML = filtered.map((s, i) => `
         <tr>
             <td>${i + 1}</td>
@@ -113,7 +139,6 @@ function renderStudentList(allStudents, keyword = '') {
             </td>
         </tr>
     `).join('');
-
     tbody.querySelectorAll('.btn-view-report').forEach(btn => {
         btn.addEventListener('click', () => openReport(btn.dataset.id));
     });
@@ -124,7 +149,6 @@ async function openReport(studentId) {
     currentStudentId = studentId;
     const session = document.getElementById('reportSession').value;
     const term = document.getElementById('reportTerm').value;
-
     try {
         showNotification('Loading report...', 'info');
         const data = await apiFetch(`/api/report/${studentId}?session=${session}&term=${term}`);
@@ -142,10 +166,8 @@ async function openReport(studentId) {
 function renderReport(report) {
     const container = document.getElementById('reportCardContainer');
     const { student, profile, results, attendance, affective, psychomotor, remarks, summary, gradeAnalysis, totalSubjects } = report;
-
     // Build HTML
     let html = `<div class="report-card">`;
-
     // School header
     html += `
         <div class="school-header">
@@ -156,29 +178,25 @@ function renderReport(report) {
             <div style="font-weight:600; color:#2563eb;">Session: ${document.getElementById('reportSession').value}</div>
         </div>
     `;
-
-    // Student profile (editable)
-// Student profile (editable) – no admission_no
-html += `
-    <div class="student-profile">
-        <div class="profile-field"><label>Name:</label> <span>${student.name}</span></div>
-        <div class="profile-field"><label>Gender:</label> <span>${student.gender || '—'}</span></div>
-        <div class="profile-field"><label>Class:</label> <span>${student.class}</span></div>
-        <div class="profile-field"><label>D.O.B.:</label> <input type="text" id="editDOB" value="${profile.dob || ''}" required /></div>
-        <div class="profile-field"><label>Age:</label> <input type="text" id="editAge" value="${profile.age || ''}" required /></div>
-        <div class="profile-field"><label>Height (cm):</label> <input type="text" id="editHeight" value="${profile.height || ''}" /></div>
-        <div class="profile-field"><label>Weight (kg):</label> <input type="text" id="editWeight" value="${profile.weight || ''}" /></div>
-        <div class="profile-field"><label>Club/Society:</label> <input type="text" id="editClub" value="${profile.club || ''}" /></div>
-        <div class="profile-field"><label>Fav. Colour:</label> <input type="text" id="editFavColor" value="${profile.fav_color || ''}" /></div>
-    </div>
-`;
-
-    // Cognitive Domain
+    // Student profile (editable) – no admission_no
+    html += `
+        <div class="student-profile">
+            <div class="profile-field"><label>Name:</label> <span>${student.name}</span></div>
+            <div class="profile-field"><label>Gender:</label> <span>${student.gender || '—'}</span></div>
+            <div class="profile-field"><label>Class:</label> <span>${student.class}</span></div>
+            <div class="profile-field"><label>D.O.B.:</label> <input type="text" id="editDOB" value="${profile.dob || ''}" required /></div>
+            <div class="profile-field"><label>Age:</label> <input type="text" id="editAge" value="${profile.age || ''}" required /></div>
+            <div class="profile-field"><label>Height (cm):</label> <input type="text" id="editHeight" value="${profile.height || ''}" /></div>
+            <div class="profile-field"><label>Weight (kg):</label> <input type="text" id="editWeight" value="${profile.weight || ''}" /></div>
+            <div class="profile-field"><label>Club/Society:</label> <input type="text" id="editClub" value="${profile.club || ''}" /></div>
+            <div class="profile-field"><label>Fav. Colour:</label> <input type="text" id="editFavColor" value="${profile.fav_color || ''}" /></div>
+        </div>
+    `;
+    // Cognitive Domain (wrapped so it scrolls horizontally on narrow screens)
     html += `<div class="section-title">📊 Cognitive Domain</div>`;
-    html += `<table class="result-table"><thead><tr>
+    html += `<div class="table-scroll"><table class="result-table"><thead><tr>
         <th>Subject</th><th>CA1</th><th>CA2</th><th>Exam</th><th>Total</th><th>Grade</th><th>Position</th><th>Remark</th>
     </tr></thead><tbody>`;
-
     if (results.length === 0) {
         html += `<tr><td colspan="8" style="text-align:center;">No results found for this session/term.</td></tr>`;
     } else {
@@ -197,8 +215,7 @@ html += `
             `;
         });
     }
-    html += `</tbody></table>`;
-
+    html += `</tbody></table></div>`;
     // Performance Summary
     html += `
         <div class="summary-grid">
@@ -208,7 +225,6 @@ html += `
             <div class="summary-item"><span class="label">Grade:</span> <span class="value">${summary.grade || 'F'}</span></div>
         </div>
     `;
-
     // Grade Scale
     html += `
         <div class="grade-scale">
@@ -220,7 +236,6 @@ html += `
             <span>F (0-29.9%) – Weak</span>
         </div>
     `;
-
     // Attendance
     html += `
         <div class="section-title">📅 Attendance Summary</div>
@@ -230,11 +245,10 @@ html += `
             <div><label>No. of Times Absent:</label> <input type="number" id="editDaysAbsent" value="${attendance.days_absent || 0}" /></div>
         </div>
     `;
-
-    // Affective Domain
+    // Affective Domain (wrapped for horizontal scroll on small screens)
     html += `
         <div class="section-title">🧠 Affective Domain</div>
-        <table class="rating-table"><thead><tr><th>Traits</th><th>5</th><th>4</th><th>3</th><th>2</th><th>1</th></tr></thead><tbody>`;
+        <div class="table-scroll"><table class="rating-table"><thead><tr><th>Traits</th><th>5</th><th>4</th><th>3</th><th>2</th><th>1</th></tr></thead><tbody>`;
     const affectiveTraits = ['attentiveness','honesty','neatness','politeness','punctuality','self_control','obedience','reliability','responsibility','relationships'];
     const affectiveLabels = ['Attentiveness','Honesty','Neatness','Politeness','Punctuality','Self Control','Obedience','Reliability','Sense of Responsibility','Relationship With Others'];
     affectiveTraits.forEach((trait, idx) => {
@@ -245,12 +259,11 @@ html += `
         }
         html += `</tr>`;
     });
-    html += `</tbody></table>`;
-
-    // Psychomotor Domain
+    html += `</tbody></table></div>`;
+    // Psychomotor Domain (wrapped for horizontal scroll on small screens)
     html += `
         <div class="section-title">🏃 Psychomotor Domain</div>
-        <table class="rating-table"><thead><tr><th>Traits</th><th>5</th><th>4</th><th>3</th><th>2</th><th>1</th></tr></thead><tbody>`;
+        <div class="table-scroll"><table class="rating-table"><thead><tr><th>Traits</th><th>5</th><th>4</th><th>3</th><th>2</th><th>1</th></tr></thead><tbody>`;
     const psychomotorTraits = ['handling_tools','drawing','handwriting','public_speaking','speech_fluency','sports'];
     const psychomotorLabels = ['Handling of Tools','Drawing / Painting','Handwriting','Public Speaking','Speech Fluency','Sports & Games'];
     psychomotorTraits.forEach((trait, idx) => {
@@ -261,8 +274,7 @@ html += `
         }
         html += `</tr>`;
     });
-    html += `</tbody></table>`;
-
+    html += `</tbody></table></div>`;
     // Remarks
     html += `
         <div class="section-title">📝 Remarks</div>
@@ -286,7 +298,6 @@ html += `
             <label>Next Term Begins: <input type="text" id="editNextTermDate" value="${remarks.next_term_date || ''}" /></label>
         </div>
     `;
-
     // Grade Analysis
     html += `
         <div class="section-title">📊 Grade Analysis</div>
@@ -300,7 +311,6 @@ html += `
             <div class="summary-item"><span class="label">Total Subjects:</span> <span class="value">${totalSubjects || 0}</span></div>
         </div>
     `;
-
     // Actions
     html += `
         <div class="modal-actions">
@@ -308,11 +318,8 @@ html += `
             <button class="btn btn-primary" id="saveReportBtn">💾 Save Report</button>
         </div>
     `;
-
     html += `</div>`; // end report-card
-
     container.innerHTML = html;
-
     // ---- Attach event listeners for rating buttons ----
     container.querySelectorAll('.rating-btn').forEach(btn => {
         btn.addEventListener('click', function() {
@@ -329,10 +336,8 @@ html += `
             // We'll read them later when saving.
         });
     });
-
     // ---- Attach save report ----
     document.getElementById('saveReportBtn')?.addEventListener('click', saveReport);
-
     // ---- Attach print ----
     document.getElementById('printReportBtn')?.addEventListener('click', () => {
         const content = document.getElementById('reportCardContainer');
@@ -352,17 +357,15 @@ async function saveReport() {
     const studentId = currentStudentId;
     const session = document.getElementById('reportSession').value;
     const term = document.getElementById('reportTerm').value;
-
-// Gather profile data (no admission_no)
-const profile = {
-    dob: document.getElementById('editDOB').value.trim(),
-    age: document.getElementById('editAge').value.trim(),
-    height: document.getElementById('editHeight').value.trim(),
-    weight: document.getElementById('editWeight').value.trim(),
-    club: document.getElementById('editClub').value.trim(),
-    fav_color: document.getElementById('editFavColor').value.trim()
-};
-
+    // Gather profile data (no admission_no)
+    const profile = {
+        dob: document.getElementById('editDOB').value.trim(),
+        age: document.getElementById('editAge').value.trim(),
+        height: document.getElementById('editHeight').value.trim(),
+        weight: document.getElementById('editWeight').value.trim(),
+        club: document.getElementById('editClub').value.trim(),
+        fav_color: document.getElementById('editFavColor').value.trim()
+    };
     // Gather results
     const resultRows = container.querySelectorAll('.result-table tbody tr');
     const results = [];
@@ -377,14 +380,12 @@ const profile = {
             results.push({ id, ca1, ca2, exam, position, remark });
         }
     });
-
     // Gather attendance
     const attendance = {
         days_opened: parseInt(document.getElementById('editDaysOpened').value) || 0,
         days_present: parseInt(document.getElementById('editDaysPresent').value) || 0,
         days_absent: parseInt(document.getElementById('editDaysAbsent').value) || 0
     };
-
     // Gather affective domain
     const affective = {};
     const affectiveTraits = ['attentiveness','honesty','neatness','politeness','punctuality','self_control','obedience','reliability','responsibility','relationships'];
@@ -392,7 +393,6 @@ const profile = {
         const active = container.querySelector(`.rating-btn[data-trait="${trait}"].active`);
         affective[trait] = active ? parseInt(active.dataset.value) : 0;
     });
-
     // Gather psychomotor
     const psychomotor = {};
     const psychomotorTraits = ['handling_tools','drawing','handwriting','public_speaking','speech_fluency','sports'];
@@ -400,7 +400,6 @@ const profile = {
         const active = container.querySelector(`.rating-btn[data-trait="${trait}"].active`);
         psychomotor[trait] = active ? parseInt(active.dataset.value) : 0;
     });
-
     // Gather remarks
     const remarks = {
         teacher_remark: document.getElementById('editTeacherRemark').value.trim(),
@@ -410,7 +409,6 @@ const profile = {
         next_term_date: document.getElementById('editNextTermDate').value.trim(),
         report_date: new Date().toISOString().split('T')[0]
     };
-
     const payload = {
         session,
         term,
@@ -421,7 +419,6 @@ const profile = {
         psychomotor,
         remarks
     };
-
     try {
         const response = await apiFetch(`/api/report/${studentId}`, {
             method: 'PUT',
@@ -445,7 +442,6 @@ function openModal(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) modal.classList.add('show');
 }
-
 function closeModal(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) modal.classList.remove('show');
